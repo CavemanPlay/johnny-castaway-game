@@ -1,1439 +1,700 @@
 milestone_number: 3
 milestone: M2 – Biome 1 Content Pack
-generated_on: '2026-02-05'
-child_issues:
-- title: Define event data model + authoring format (SO/JSON) (Biome 1)
-  parent_epic: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:content
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 event system (random events + outcomes)
-
-
-    **Goal**
-
-    Introduce replayable, seed-driven events that create meaningful choices and consequences
-    during a run.
-
-
-    **Scope / Tasks**
-
-    - [ ] Pick the asset format (ScriptableObjects preferred unless content needs
-    external editing).
-
-    - [ ] Define schema + IDs (stable identifiers for save/load).
-
-    - [ ] Add validation rules (duplicate IDs, missing refs, invalid ranges).
-
-    - [ ] Create at least one example asset and load it at runtime.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Implement deterministic event scheduler (tick/time + weights)
-  parent_epic: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:content
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 event system (random events + outcomes)
-
-
-    **Goal**
-
-    Introduce replayable, seed-driven events that create meaningful choices and consequences
-    during a run.
-
-
-    **Scope / Tasks**
-
-    - [ ] Define trigger cadence (ticks/day/action-count).
-
-    - [ ] Implement deterministic RNG selection (seed + stable ordering).
-
-    - [ ] Apply gating (conditions, cooldown, uniqueness, already-seen).
-
-    - [ ] Record event history for debugging and save/load.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Build event UI panel (title, description, choices)
-  parent_epic: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:content
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 event system (random events + outcomes)
-
-
-    **Goal**
-
-    Introduce replayable, seed-driven events that create meaningful choices and consequences
-    during a run.
-
-
-    **Scope / Tasks**
-
-    - [ ] Create/adjust prefab(s) with responsive layout for long text.
-
-    - [ ] Support input navigation (mouse + keyboard/controller basics).
-
-    - [ ] Show clear feedback after actions (toasts, highlights, deltas).
-
-    - [ ] Hook into pause / modal flow as needed.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Implement 8 biome-1 events + outcomes
-  parent_epic: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:content
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 event system (random events + outcomes)
-
-
-    **Goal**
-
-    Introduce replayable, seed-driven events that create meaningful choices and consequences
-    during a run.
-
-
-    **Scope / Tasks**
-
-    - [ ] Break down the work into concrete subtasks and implement them.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Save/Load support for event state + history
-  parent_epic: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:content
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 event system (random events + outcomes)
-
-
-    **Goal**
-
-    Introduce replayable, seed-driven events that create meaningful choices and consequences
-    during a run.
-
-
-    **Scope / Tasks**
-
-    - [ ] Persist minimal state to restore exactly (IDs + timers + cooldowns).
-
-    - [ ] Handle saving mid-interaction safely (e.g., active event choice screen).
-
-    - [ ] Regression test: save during, save after, reload repeatedly.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Add debug tooling to force/preview events (DevHUD)
-  parent_epic: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:chore
-  - area:content
-  - milestone:M2
-  estimate: S
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 event system (random events + outcomes)
-
-
-    **Goal**
-
-    Introduce replayable, seed-driven events that create meaningful choices and consequences
-    during a run.
-
-
-    **Scope / Tasks**
-
-    - [ ] Create/adjust prefab(s) with responsive layout for long text.
-
-    - [ ] Support input navigation (mouse + keyboard/controller basics).
-
-    - [ ] Show clear feedback after actions (toasts, highlights, deltas).
-
-    - [ ] Hook into pause / modal flow as needed.
-
-    - [ ] Add DevHUD controls gated by a dev flag/define.
-
-    - [ ] Expose key tunables/commands (trigger event, sim speed).
-
-    - [ ] Provide a small debug readout (why eligible/ineligible).
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Move upgrade definitions to ScriptableObjects (Biome 1)
-  parent_epic: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:tech-debt
-  - area:core
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)
-
-
-    **Goal**
-
-    Expand upgrades into a tiered progression with interesting tradeoffs and small
-    synergies, without exploding complexity.
-
-
-    **Scope / Tasks**
-
-    - [ ] Pick the asset format (ScriptableObjects preferred unless content needs
-    external editing).
-
-    - [ ] Define schema + IDs (stable identifiers for save/load).
-
-    - [ ] Add validation rules (duplicate IDs, missing refs, invalid ranges).
-
-    - [ ] Create at least one example asset and load it at runtime.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Implement tier/prereq rules + unlock flow
-  parent_epic: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:core
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)
-
-
-    **Goal**
-
-    Expand upgrades into a tiered progression with interesting tradeoffs and small
-    synergies, without exploding complexity.
-
-
-    **Scope / Tasks**
-
-    - [ ] Break down the work into concrete subtasks and implement them.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Add 12 upgrades across 3 tiers (Biome 1 set)
-  parent_epic: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:core
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)
-
-
-    **Goal**
-
-    Expand upgrades into a tiered progression with interesting tradeoffs and small
-    synergies, without exploding complexity.
-
-
-    **Scope / Tasks**
-
-    - [ ] Design the Biome 1 set (12 upgrades across 3 tiers).
-
-    - [ ] Define prereqs + costs + effects (tick-based).
-
-    - [ ] Add at least 3 synergies (conditional multipliers / interactions).
-
-    - [ ] Playtest and adjust costs/effects for baseline pacing.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Add synergy hooks (3 examples) + tests
-  parent_epic: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:core
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)
-
-
-    **Goal**
-
-    Expand upgrades into a tiered progression with interesting tradeoffs and small
-    synergies, without exploding complexity.
-
-
-    **Scope / Tasks**
-
-    - [ ] Break down the work into concrete subtasks and implement them.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: 'Upgrade UI: locked/prereq display + tooltip details'
-  parent_epic: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:core
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)
-
-
-    **Goal**
-
-    Expand upgrades into a tiered progression with interesting tradeoffs and small
-    synergies, without exploding complexity.
-
-
-    **Scope / Tasks**
-
-    - [ ] Create/adjust prefab(s) with responsive layout for long text.
-
-    - [ ] Support input navigation (mouse + keyboard/controller basics).
-
-    - [ ] Show clear feedback after actions (toasts, highlights, deltas).
-
-    - [ ] Hook into pause / modal flow as needed.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Balance pass on costs/effects (initial targets)
-  parent_epic: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:chore
-  - area:core
-  - milestone:M2
-  estimate: S
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)
-
-
-    **Goal**
-
-    Expand upgrades into a tiered progression with interesting tradeoffs and small
-    synergies, without exploding complexity.
-
-
-    **Scope / Tasks**
-
-    - [ ] Define baseline targets (time-to-first-upgrade, survival curve, etc.).
-
-    - [ ] Expose balance parameters via BalanceConfig/RunConfig.
-
-    - [ ] Add end-of-run telemetry snapshot for tuning.
-
-    - [ ] Apply ≥5 adjustments with brief notes on observed impact.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Add BalanceConfig asset for Biome 1 (rates, costs, hazard params)
-  parent_epic: 'EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:config
-  - area:balance
-  - milestone:M2
-  estimate: S
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)
-
-
-    **Goal**
-
-    Establish a repeatable tuning workflow and baseline economy targets for Biome
-    1 so progression feels steady, not random chaos.
-
-
-    **Scope / Tasks**
-
-    - [ ] Define baseline targets (time-to-first-upgrade, survival curve, etc.).
-
-    - [ ] Expose balance parameters via BalanceConfig/RunConfig.
-
-    - [ ] Add end-of-run telemetry snapshot for tuning.
-
-    - [ ] Apply ≥5 adjustments with brief notes on observed impact.
-
-    - [ ] Define hazard states (incoming/active/recovering) and thresholds.
-
-    - [ ] Implement mitigation options (upgrade/item/behavior).
-
-    - [ ] Add clear warnings to prevent ''unfair'' game-overs.
-
-    - [ ] Ensure at least 2 events interact with hazard.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Extend run summary stats for tuning (economy KPIs)
-  parent_epic: 'EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:balance
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)
-
-
-    **Goal**
-
-    Establish a repeatable tuning workflow and baseline economy targets for Biome
-    1 so progression feels steady, not random chaos.
-
-
-    **Scope / Tasks**
-
-    - [ ] Define baseline targets (time-to-first-upgrade, survival curve, etc.).
-
-    - [ ] Expose balance parameters via BalanceConfig/RunConfig.
-
-    - [ ] Add end-of-run telemetry snapshot for tuning.
-
-    - [ ] Apply ≥5 adjustments with brief notes on observed impact.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Add quick 'sim speed' tools for balance testing (DevHUD)
-  parent_epic: 'EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:chore
-  - area:balance
-  - milestone:M2
-  estimate: S
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)
-
-
-    **Goal**
-
-    Establish a repeatable tuning workflow and baseline economy targets for Biome
-    1 so progression feels steady, not random chaos.
-
-
-    **Scope / Tasks**
-
-    - [ ] Create/adjust prefab(s) with responsive layout for long text.
-
-    - [ ] Support input navigation (mouse + keyboard/controller basics).
-
-    - [ ] Show clear feedback after actions (toasts, highlights, deltas).
-
-    - [ ] Hook into pause / modal flow as needed.
-
-    - [ ] Add DevHUD controls gated by a dev flag/define.
-
-    - [ ] Expose key tunables/commands (trigger event, sim speed).
-
-    - [ ] Provide a small debug readout (why eligible/ineligible).
-
-    - [ ] Define baseline targets (time-to-first-upgrade, survival curve, etc.).
-
-    - [ ] Expose balance parameters via BalanceConfig/RunConfig.
-
-    - [ ] Add end-of-run telemetry snapshot for tuning.
-
-    - [ ] Apply ≥5 adjustments with brief notes on observed impact.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Document tuning loop (Docs/Balance.md)
-  parent_epic: 'EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:chore
-  - area:balance
-  - milestone:M2
-  estimate: S
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)
-
-
-    **Goal**
-
-    Establish a repeatable tuning workflow and baseline economy targets for Biome
-    1 so progression feels steady, not random chaos.
-
-
-    **Scope / Tasks**
-
-    - [ ] Define baseline targets (time-to-first-upgrade, survival curve, etc.).
-
-    - [ ] Expose balance parameters via BalanceConfig/RunConfig.
-
-    - [ ] Add end-of-run telemetry snapshot for tuning.
-
-    - [ ] Apply ≥5 adjustments with brief notes on observed impact.
-
-    - [ ] Write a one-page doc with step-by-step examples.
-
-    - [ ] Include common pitfalls + validation expectations.
-
-    - [ ] Link the doc from README or a Docs index.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Initial balance pass (5+ changes) with notes
-  parent_epic: 'EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:chore
-  - area:balance
-  - milestone:M2
-  estimate: S
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)
-
-
-    **Goal**
-
-    Establish a repeatable tuning workflow and baseline economy targets for Biome
-    1 so progression feels steady, not random chaos.
-
-
-    **Scope / Tasks**
-
-    - [ ] Define baseline targets (time-to-first-upgrade, survival curve, etc.).
-
-    - [ ] Expose balance parameters via BalanceConfig/RunConfig.
-
-    - [ ] Add end-of-run telemetry snapshot for tuning.
-
-    - [ ] Apply ≥5 adjustments with brief notes on observed impact.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: UI polish pass on HUD + panels (Biome 1)
-  parent_epic: 'EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:ui
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)
-
-
-    **Goal**
-
-    Improve readability and player feedback for Biome 1 systems (events, upgrades,
-    hazard) with lightweight visuals and UI polish.
-
-
-    **Scope / Tasks**
-
-    - [ ] Create/adjust prefab(s) with responsive layout for long text.
-
-    - [ ] Support input navigation (mouse + keyboard/controller basics).
-
-    - [ ] Show clear feedback after actions (toasts, highlights, deltas).
-
-    - [ ] Hook into pause / modal flow as needed.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Improve toast/notification system (stacking + icons)
-  parent_epic: 'EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:ui
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)
-
-
-    **Goal**
-
-    Improve readability and player feedback for Biome 1 systems (events, upgrades,
-    hazard) with lightweight visuals and UI polish.
-
-
-    **Scope / Tasks**
-
-    - [ ] Break down the work into concrete subtasks and implement them.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Add lightweight VFX hooks for key actions (upgrade, event, hazard)
-  parent_epic: 'EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:ui
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)
-
-
-    **Goal**
-
-    Improve readability and player feedback for Biome 1 systems (events, upgrades,
-    hazard) with lightweight visuals and UI polish.
-
-
-    **Scope / Tasks**
-
-    - [ ] Add lightweight hooks to trigger VFX/SFX from gameplay events.
-
-    - [ ] Use placeholders that match style conventions (no new art blockers).
-
-    - [ ] Spot-check performance impact (Profiler capture).
-
-    - [ ] Define hazard states (incoming/active/recovering) and thresholds.
-
-    - [ ] Implement mitigation options (upgrade/item/behavior).
-
-    - [ ] Add clear warnings to prevent ''unfair'' game-overs.
-
-    - [ ] Ensure at least 2 events interact with hazard.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Add SFX hooks + placeholders for key actions
-  parent_epic: 'EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:ui
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)
-
-
-    **Goal**
-
-    Improve readability and player feedback for Biome 1 systems (events, upgrades,
-    hazard) with lightweight visuals and UI polish.
-
-
-    **Scope / Tasks**
-
-    - [ ] Add lightweight hooks to trigger VFX/SFX from gameplay events.
-
-    - [ ] Use placeholders that match style conventions (no new art blockers).
-
-    - [ ] Spot-check performance impact (Profiler capture).
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Performance spot-check + notes (Profiler capture)
-  parent_epic: 'EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:chore
-  - area:ui
-  - milestone:M2
-  estimate: S
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)
-
-
-    **Goal**
-
-    Improve readability and player feedback for Biome 1 systems (events, upgrades,
-    hazard) with lightweight visuals and UI polish.
-
-
-    **Scope / Tasks**
-
-    - [ ] Break down the work into concrete subtasks and implement them.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Add hazard telegraph states + UI cues
-  parent_epic: 'EPIC: M2 — Biome 1 hazard tuning & mitigation variety'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:systems
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 hazard tuning & mitigation variety
-
-
-    **Goal**
-
-    Make the M1 hazard mechanic feel fair and interesting in Biome 1 via tuning +
-    multiple mitigations and clearer telegraphing.
-
-
-    **Scope / Tasks**
-
-    - [ ] Create/adjust prefab(s) with responsive layout for long text.
-
-    - [ ] Support input navigation (mouse + keyboard/controller basics).
-
-    - [ ] Show clear feedback after actions (toasts, highlights, deltas).
-
-    - [ ] Hook into pause / modal flow as needed.
-
-    - [ ] Define hazard states (incoming/active/recovering) and thresholds.
-
-    - [ ] Implement mitigation options (upgrade/item/behavior).
-
-    - [ ] Add clear warnings to prevent ''unfair'' game-overs.
-
-    - [ ] Ensure at least 2 events interact with hazard.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Implement 3 mitigation options (upgrade/item/behavior)
-  parent_epic: 'EPIC: M2 — Biome 1 hazard tuning & mitigation variety'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:systems
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 hazard tuning & mitigation variety
-
-
-    **Goal**
-
-    Make the M1 hazard mechanic feel fair and interesting in Biome 1 via tuning +
-    multiple mitigations and clearer telegraphing.
-
-
-    **Scope / Tasks**
-
-    - [ ] Break down the work into concrete subtasks and implement them.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Tune hazard parameters for Biome 1 baseline
-  parent_epic: 'EPIC: M2 — Biome 1 hazard tuning & mitigation variety'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:chore
-  - area:systems
-  - milestone:M2
-  estimate: S
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 hazard tuning & mitigation variety
-
-
-    **Goal**
-
-    Make the M1 hazard mechanic feel fair and interesting in Biome 1 via tuning +
-    multiple mitigations and clearer telegraphing.
-
-
-    **Scope / Tasks**
-
-    - [ ] Define baseline targets (time-to-first-upgrade, survival curve, etc.).
-
-    - [ ] Expose balance parameters via BalanceConfig/RunConfig.
-
-    - [ ] Add end-of-run telemetry snapshot for tuning.
-
-    - [ ] Apply ≥5 adjustments with brief notes on observed impact.
-
-    - [ ] Define hazard states (incoming/active/recovering) and thresholds.
-
-    - [ ] Implement mitigation options (upgrade/item/behavior).
-
-    - [ ] Add clear warnings to prevent ''unfair'' game-overs.
-
-    - [ ] Ensure at least 2 events interact with hazard.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Add 2 events that interact with hazard (buff/debuff)
-  parent_epic: 'EPIC: M2 — Biome 1 hazard tuning & mitigation variety'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:feature
-  - area:systems
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 hazard tuning & mitigation variety
-
-
-    **Goal**
-
-    Make the M1 hazard mechanic feel fair and interesting in Biome 1 via tuning +
-    multiple mitigations and clearer telegraphing.
-
-
-    **Scope / Tasks**
-
-    - [ ] Define hazard states (incoming/active/recovering) and thresholds.
-
-    - [ ] Implement mitigation options (upgrade/item/behavior).
-
-    - [ ] Add clear warnings to prevent ''unfair'' game-overs.
-
-    - [ ] Ensure at least 2 events interact with hazard.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Review game-over fairness + add warnings
-  parent_epic: 'EPIC: M2 — Biome 1 hazard tuning & mitigation variety'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:bug
-  - area:systems
-  - milestone:M2
-  estimate: S
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Biome 1 hazard tuning & mitigation variety
-
-
-    **Goal**
-
-    Make the M1 hazard mechanic feel fair and interesting in Biome 1 via tuning +
-    multiple mitigations and clearer telegraphing.
-
-
-    **Scope / Tasks**
-
-    - [ ] Break down the work into concrete subtasks and implement them.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Define content folder structure + conventions (Biome 1)
-  parent_epic: 'EPIC: M2 — Content pipeline & authoring workflow (Biome 1)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:chore
-  - area:tooling
-  - milestone:M2
-  estimate: S
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Content pipeline & authoring workflow (Biome 1)
-
-
-    **Goal**
-
-    Make it easy for Future You™ to add Biome 1 content (events/upgrades/resources)
-    without touching code constantly.
-
-
-    **Scope / Tasks**
-
-    - [ ] Create `Assets/Game/Content/Biome1/` (or agreed structure).
-
-    - [ ] Document naming conventions for IDs and files.
-
-    - [ ] Move existing Biome 1 content into the structure.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Add validation for content assets (ranges, refs, duplicates)
-  parent_epic: 'EPIC: M2 — Content pipeline & authoring workflow (Biome 1)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:tech-debt
-  - area:tooling
-  - milestone:M2
-  estimate: M
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Content pipeline & authoring workflow (Biome 1)
-
-
-    **Goal**
-
-    Make it easy for Future You™ to add Biome 1 content (events/upgrades/resources)
-    without touching code constantly.
-
-
-    **Scope / Tasks**
-
-    - [ ] Implement editor-time validation (menu item or automated check).
-
-    - [ ] Fail fast in dev builds (asserts/log warnings).
-
-    - [ ] Cover: missing refs, invalid ranges, duplicate IDs, empty lists.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Docs/ContentAuthoring.md (events + upgrades)
-  parent_epic: 'EPIC: M2 — Content pipeline & authoring workflow (Biome 1)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:chore
-  - area:tooling
-  - milestone:M2
-  estimate: S
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Content pipeline & authoring workflow (Biome 1)
-
-
-    **Goal**
-
-    Make it easy for Future You™ to add Biome 1 content (events/upgrades/resources)
-    without touching code constantly.
-
-
-    **Scope / Tasks**
-
-    - [ ] Pick the asset format (ScriptableObjects preferred unless content needs
-    external editing).
-
-    - [ ] Define schema + IDs (stable identifiers for save/load).
-
-    - [ ] Add validation rules (duplicate IDs, missing refs, invalid ranges).
-
-    - [ ] Create at least one example asset and load it at runtime.
-
-    - [ ] Write a one-page doc with step-by-step examples.
-
-    - [ ] Include common pitfalls + validation expectations.
-
-    - [ ] Link the doc from README or a Docs index.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
-- title: Add lightweight editor helpers (optional) (e.g., menu items)
-  parent_epic: 'EPIC: M2 — Content pipeline & authoring workflow (Biome 1)'
-  milestone: M2 – Biome 1 Content Pack
-  labels:
-  - type:chore
-  - area:tooling
-  - milestone:M2
-  estimate: S
-  body_markdown: '**Milestone**: M2 – Biome 1 Content Pack
-
-    **Parent Epic**: EPIC: M2 — Content pipeline & authoring workflow (Biome 1)
-
-
-    **Goal**
-
-    Make it easy for Future You™ to add Biome 1 content (events/upgrades/resources)
-    without touching code constantly.
-
-
-    **Scope / Tasks**
-
-    - [ ] Break down the work into concrete subtasks and implement them.
-
-
-    **Acceptance Criteria**
-
-    - Work is data-driven where applicable (no hardcoded content).
-
-    - No regressions to existing M1/M2 functionality.
-
-    - Plays nicely with deterministic seed/replay expectations.
-
-
-    **Definition of Done**
-
-    - Implemented + tested in-editor (basic smoke test).
-
-    - Docs or inline comments updated where it helps Future You™.
-
-    - PR merged with green CI.'
+issues:
+  - type: feature
+    title: 'feat: Define event data model + authoring format (SO/JSON) (Biome 1)'
+    raw_title: Define event data model + authoring format (SO/JSON) (Biome 1)
+    labels:
+      - type:feature
+      - area:content
+      - sys:events
+      - estimate:M
+      - risk:M
+    area: content
+    estimate: M
+    risk: M
+    body:
+      what: 'Create a data-driven event definition format: id, title, description, choices, requirements, weight, and outcome
+      payload.'
+      why: We need events to be easy to add/iterate on without changing code constantly, and deterministic behavior depends
+        on a stable schema.
+      definition_of_done:
+        - Event definition schema exists (ScriptableObject or JSON) and is versioned
+        - Validation catches missing ids/duplicate ids/invalid weights
+        - At least 1 sample event loads and renders via the UI stub
+      system: events
+      priority: P1
+      notes: 'Recommended: ScriptableObjects first (Unity-friendly), then optional JSON import later.'
+    parent_epic: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
+  - type: feature
+    title: 'feat: Implement deterministic event scheduler (tick/time + weights)'
+    raw_title: Implement deterministic event scheduler (tick/time + weights)
+    labels:
+      - type:feature
+      - area:content
+      - sys:events
+      - estimate:M
+      - risk:M
+    area: content
+    estimate: M
+    risk: M
+    body:
+      what: Build an event scheduler that selects events based on seed + run state using weighted randomness and gating rules.
+      why: Events must feel varied but still be reproducible for debugging and fairness.
+      definition_of_done:
+        - Given same seed + same actions, event selection is identical across runs
+        - Scheduler supports cooldowns and basic requirements (flags/resources/hazard state)
+        - DevHUD can show next event roll debug info
+      system: events
+      priority: P1
+    parent_epic: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
+  - type: feature
+    title: 'feat: Build event UI panel (title, description, choices)'
+    raw_title: Build event UI panel (title, description, choices)
+    labels:
+      - type:feature
+      - area:ui
+      - sys:ui
+      - estimate:S
+      - risk:M
+    area: ui
+    estimate: S
+    risk: M
+    body:
+      what: Create a simple modal/panel to display an event and let the player pick a choice.
+      why: Players need a readable interaction surface; also needed for quick iteration on content.
+      definition_of_done:
+        - Panel shows title + body text + 2–3 choice buttons
+        - Choice click triggers a callback into event resolver
+        - UI can be opened/closed without breaking the run loop
+      system: ui
+      priority: P1
+    parent_epic: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
+  - type: feature
+    title: 'feat: Implement 8 biome-1 events + outcomes'
+    raw_title: Implement 8 biome-1 events + outcomes
+    labels:
+      - type:feature
+      - area:content
+      - sys:events
+      - estimate:L
+      - risk:M
+    area: content
+    estimate: L
+    risk: M
+    body:
+      what: Author at least 8 events with 2+ branches each; outcomes modify resources/flags/hazard/upgrade unlocks.
+      why: This is the content depth that makes Biome 1 feel alive and replayable.
+      definition_of_done:
+        - 8 events exist and can trigger naturally during a run
+        - Each event has at least 2 meaningful outcomes
+        - Outcomes are deterministic and show feedback (toast or panel result text)
+      system: events
+      priority: P1
+      notes: Keep writing short and punchy; placeholders OK. Prioritize systemic consequences.
+    parent_epic: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
+  - type: feature
+    title: 'feat: Save/Load support for event state + history'
+    raw_title: Save/Load support for event state + history
+    labels:
+      - type:feature
+      - area:core
+      - sys:save-load
+      - estimate:M
+      - risk:H
+    area: core
+    estimate: M
+    risk: H
+    body:
+      what: Persist current event (if open) and event history/cooldowns in the save schema.
+      why: Without this, events will duplicate or break determinism across reloads.
+      definition_of_done:
+        - Reloading mid-event restores UI + available choices safely
+        - Event cooldowns/history survive save/load
+        - Backward compatible save version bump (or migration) is implemented
+      system: save-load
+      priority: P1
+    parent_epic: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
+  - type: chore
+    title: 'chore: Add debug tooling to force/preview events (DevHUD)'
+    raw_title: Add debug tooling to force/preview events (DevHUD)
+    labels:
+      - type:chore
+      - area:tooling
+      - sys:tooling
+      - estimate:S
+      - risk:L
+    area: tooling
+    estimate: S
+    risk: L
+    body:
+      what: Add DevHUD controls to trigger a specific event, list all events, and show last N events.
+      why: Speeds up iteration and helps ensure determinism.
+      definition_of_done:
+        - DevHUD list of events by id/name
+        - Button to trigger selected event immediately
+        - Displays recent history + cooldown state
+      system: tooling
+      priority: P2
+      chore_type: tooling (scripts, CI, automation)
+    parent_epic: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
+  - type: tech-debt
+    title: 'tech-debt: Move upgrade definitions to ScriptableObjects (Biome 1)'
+    raw_title: Move upgrade definitions to ScriptableObjects (Biome 1)
+    labels:
+      - type:tech-debt
+      - area:core
+      - sys:upgrades
+      - estimate:M
+      - risk:M
+    area: core
+    estimate: M
+    risk: M
+    body:
+      what: Refactor upgrades to be authored as ScriptableObjects with ids, costs, tier, prereqs, and effect payload.
+      why: Data-driven upgrades allow faster iteration and safer balancing.
+      definition_of_done:
+        - Upgrade definitions load from SOs (no hard-coded list)
+        - IDs are stable and validated (no duplicates)
+        - Existing M1 upgrades still work after migration
+      system: upgrades
+      priority: P1
+    parent_epic: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
+  - type: feature
+    title: 'feat: Implement tier/prereq rules + unlock flow'
+    raw_title: Implement tier/prereq rules + unlock flow
+    labels:
+      - type:feature
+      - area:core
+      - sys:upgrades
+      - estimate:M
+      - risk:M
+    area: core
+    estimate: M
+    risk: M
+    body:
+      what: Support upgrade tiers, prerequisite requirements, and locked/unlocked states.
+      why: This creates progression depth without needing a full skill tree editor.
+      definition_of_done:
+        - Tier/prereq rules are enforced consistently
+        - Upgrades unlock immediately when prereqs are met
+        - Edge cases handled (missing prereq id, circular refs) with validation
+      system: upgrades
+      priority: P1
+    parent_epic: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
+  - type: feature
+    title: 'feat: Add 12 upgrades across 3 tiers (Biome 1 set)'
+    raw_title: Add 12 upgrades across 3 tiers (Biome 1 set)
+    labels:
+      - type:feature
+      - area:content
+      - sys:upgrades
+      - estimate:L
+      - risk:M
+    area: content
+    estimate: L
+    risk: M
+    body:
+      what: Design and author 12 upgrades, distributed across tiers, with clear effects and costs.
+      why: Biome 1 needs a satisfying progression ramp and meaningful decisions.
+      definition_of_done:
+        - 12 upgrades exist with ids, tiers, costs, and effects
+        - At least 3 different effect types (rate, cap, mitigation, efficiency, etc.)
+        - All upgrades affect tick-sim (not frame dependent)
+      system: upgrades
+      priority: P1
+      notes: 'Start simple: 4 per tier. Keep costs and effects readable.'
+    parent_epic: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
+  - type: feature
+    title: 'feat: Add synergy hooks (3 examples) + tests'
+    raw_title: Add synergy hooks (3 examples) + tests
+    labels:
+      - type:feature
+      - area:systems
+      - sys:upgrades
+      - estimate:M
+      - risk:M
+    area: systems
+    estimate: M
+    risk: M
+    body:
+      what: Implement lightweight synergy rules (conditional multipliers, bonuses when combined).
+      why: Synergies add depth and encourage different build paths.
+      definition_of_done:
+        - At least 3 synergy cases implemented
+        - Synergy behavior is deterministic and testable
+        - A sanity test or debug validation confirms synergy outputs
+      system: upgrades
+      priority: P2
+    parent_epic: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
+  - type: feature
+    title: 'feat: Upgrade UI: locked/prereq display + tooltip details'
+    raw_title: 'Upgrade UI: locked/prereq display + tooltip details'
+    labels:
+      - type:feature
+      - area:ui
+      - sys:ui
+      - estimate:M
+      - risk:M
+    area: ui
+    estimate: M
+    risk: M
+    body:
+      what: Enhance upgrade panel to show tier, locked state, prereqs, and effect summary tooltip.
+      why: Players need clarity on why something is locked and what it does.
+      definition_of_done:
+        - Locked upgrades show prereqs clearly
+        - Tooltip (or details panel) shows effect summary + cost
+        - No layout regressions on common resolutions
+      system: ui
+      priority: P1
+    parent_epic: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
+  - type: chore
+    title: 'chore: Balance pass on costs/effects (initial targets)'
+    raw_title: Balance pass on costs/effects (initial targets)
+    labels:
+      - type:chore
+      - area:balance
+      - sys:balance
+      - estimate:M
+      - risk:M
+    area: balance
+    estimate: M
+    risk: M
+    body:
+      what: Tune upgrade costs/effects to hit initial Biome 1 pacing targets.
+      why: Even good systems feel bad if the numbers are off.
+      definition_of_done:
+        - Documented baseline targets (time-to-first-upgrade, etc.) referenced
+        - At least 5 adjustments made with notes explaining why
+        - No obvious runaway (infinite growth) in quick sims
+      system: balance
+      priority: P2
+      chore_type: project hygiene / content authoring
+    parent_epic: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
+  - type: config
+    title: 'config: Add BalanceConfig asset for Biome 1 (rates, costs, hazard params)'
+    raw_title: Add BalanceConfig asset for Biome 1 (rates, costs, hazard params)
+    labels:
+      - type:config
+      - area:balance
+      - sys:balance
+      - estimate:S
+      - risk:L
+    area: balance
+    estimate: S
+    risk: L
+    body:
+      what: Create a BalanceConfig ScriptableObject for rates/cost curves/hazard settings for Biome 1.
+      why: Centralized tuning reduces random constant edits across multiple scripts.
+      definition_of_done:
+        - BalanceConfig exists and is loaded by RunConfig (or similar)
+        - At least 10 key parameters are wired end-to-end
+        - Defaults produce a playable run without errors
+      system: balance
+      priority: P1
+    parent_epic: 'EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)'
+  - type: feature
+    title: 'feat: Extend run summary stats for tuning (economy KPIs)'
+    raw_title: Extend run summary stats for tuning (economy KPIs)
+    labels:
+      - type:feature
+      - area:balance
+      - sys:telemetry
+      - estimate:S
+      - risk:M
+    area: balance
+    estimate: S
+    risk: M
+    body:
+      what: 'Add summary KPIs: time-to-first-upgrade, peak resources, upgrades purchased, hazard uptime, escape progress timeline.'
+      why: We need data to tune without guessing.
+      definition_of_done:
+        - Run summary includes at least 6 KPIs useful for tuning
+        - Values are consistent across save/load
+        - Summary is visible in UI or printed in DevHUD/log
+      system: telemetry
+      priority: P1
+    parent_epic: 'EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)'
+  - type: chore
+    title: 'chore: Add quick ''sim speed'' tools for balance testing (DevHUD)'
+    raw_title: Add quick 'sim speed' tools for balance testing (DevHUD)
+    labels:
+      - type:chore
+      - area:tooling
+      - sys:tooling
+      - estimate:S
+      - risk:L
+    area: tooling
+    estimate: S
+    risk: L
+    body:
+      what: Add DevHUD controls for fast-forward ticks, run-to-day-N, and toggle auto-sim.
+      why: Makes balancing 10x faster.
+      definition_of_done:
+        - DevHUD exposes sim speed controls beyond 1x/2x/4x
+        - Fast-forward does not break determinism (same actions same results)
+        - Easy way to reset a run for repeated tests
+      system: tooling
+      priority: P2
+      chore_type: tooling (scripts, CI, automation)
+    parent_epic: 'EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)'
+  - type: chore
+    title: 'chore: Document tuning loop (Docs/Balance.md)'
+    raw_title: Document tuning loop (Docs/Balance.md)
+    labels:
+      - type:chore
+      - area:docs
+      - sys:docs
+      - estimate:S
+      - risk:L
+    area: docs
+    estimate: S
+    risk: L
+    body:
+      what: Write a short doc describing how to tune BalanceConfig safely (what changes what).
+      why: Prevents future-you from introducing chaos and makes numbers changes intentional.
+      definition_of_done:
+        - Docs/Balance.md exists with parameter descriptions
+        - Includes a step-by-step tuning loop
+        - Links to where KPIs are displayed
+      system: docs
+      priority: P2
+      chore_type: project hygiene / content authoring
+    parent_epic: 'EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)'
+  - type: chore
+    title: 'chore: Initial balance pass (5+ changes) with notes'
+    raw_title: Initial balance pass (5+ changes) with notes
+    labels:
+      - type:chore
+      - area:balance
+      - sys:balance
+      - estimate:M
+      - risk:M
+    area: balance
+    estimate: M
+    risk: M
+    body:
+      what: Do an initial tuning iteration and record what changed and why.
+      why: We want a baseline that feels stable before adding more content.
+      definition_of_done:
+        - At least 5 parameter changes made in BalanceConfig/RunConfig
+        - Each change documented (before/after) in docs or PR notes
+        - 'Run feels steady: not stuck early, not trivial late'
+      system: balance
+      priority: P2
+      chore_type: project hygiene / content authoring
+    parent_epic: 'EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)'
+  - type: feature
+    title: 'feat: UI polish pass on HUD + panels (Biome 1)'
+    raw_title: UI polish pass on HUD + panels (Biome 1)
+    labels:
+      - type:feature
+      - area:ui
+      - sys:ui
+      - estimate:M
+      - risk:M
+    area: ui
+    estimate: M
+    risk: M
+    body:
+      what: Improve HUD layout, spacing, typography hierarchy, and panel consistency for Biome 1.
+      why: Readability is half the game; the other half is suffering.
+      definition_of_done:
+        - HUD elements have clear hierarchy and consistent alignment
+        - Panels share consistent styling (padding, fonts, buttons)
+        - No clipping at common resolutions
+      system: ui
+      priority: P2
+    parent_epic: 'EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)'
+  - type: feature
+    title: 'feat: Improve toast/notification system (stacking + icons)'
+    raw_title: Improve toast/notification system (stacking + icons)
+    labels:
+      - type:feature
+      - area:ui
+      - sys:ui
+      - estimate:S
+      - risk:M
+    area: ui
+    estimate: S
+    risk: M
+    body:
+      what: Add stacking rules, optional icons, and durations for notifications.
+      why: Players need clear feedback on events/upgrades/hazard without opening menus.
+      definition_of_done:
+        - Toasts stack without overlapping critical HUD
+        - Icons (optional) and severity levels (info/warn) supported
+        - Rate-limited to avoid spam during fast sim
+      system: ui
+      priority: P2
+    parent_epic: 'EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)'
+  - type: feature
+    title: 'feat: Add lightweight VFX hooks for key actions (upgrade, event, hazard)'
+    raw_title: Add lightweight VFX hooks for key actions (upgrade, event, hazard)
+    labels:
+      - type:feature
+      - area:ui
+      - sys:vfx
+      - estimate:M
+      - risk:M
+    area: ui
+    estimate: M
+    risk: M
+    body:
+      what: Add simple VFX triggers (particles/anim pulses) tied to key actions.
+      why: Feedback makes systems feel alive even with placeholder art.
+      definition_of_done:
+        - VFX hooks exist for upgrade purchase, event outcome, hazard start/end
+        - Hooks are optional and can be disabled in config
+        - No big perf spikes (quick profiler check)
+      system: vfx
+      priority: P3
+    parent_epic: 'EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)'
+  - type: feature
+    title: 'feat: Add SFX hooks + placeholders for key actions'
+    raw_title: Add SFX hooks + placeholders for key actions
+    labels:
+      - type:feature
+      - area:ui
+      - sys:audio
+      - estimate:S
+      - risk:L
+    area: ui
+    estimate: S
+    risk: L
+    body:
+      what: Add AudioManager hooks and placeholder clips for key actions (upgrade buy, hazard ping, event result).
+      why: Sound is cheap juice.
+      definition_of_done:
+        - Audio hooks exist and can be toggled
+        - No missing-reference exceptions when clips absent
+        - At least 3 actions trigger SFX reliably
+      system: audio
+      priority: P3
+    parent_epic: 'EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)'
+  - type: chore
+    title: 'chore: Performance spot-check + notes (Profiler capture)'
+    raw_title: Performance spot-check + notes (Profiler capture)
+    labels:
+      - type:chore
+      - area:performance
+      - sys:performance
+      - estimate:S
+      - risk:M
+    area: performance
+    estimate: S
+    risk: M
+    body:
+      what: Capture a short profiler session (normal speed + fast sim) and note any obvious spikes.
+      why: We want to keep Biome 1 scalable before Biome 2 adds complexity.
+      definition_of_done:
+        - Profiler capture recorded (screenshot or notes)
+        - Any hotspots noted as follow-up issues if needed
+        - No catastrophic GC spikes during normal play
+      system: performance
+      priority: P2
+      chore_type: project hygiene / content authoring
+    parent_epic: 'EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)'
+  - type: feature
+    title: 'feat: Add hazard telegraph states + UI cues'
+    raw_title: Add hazard telegraph states + UI cues
+    labels:
+      - type:feature
+      - area:systems
+      - sys:hazards
+      - estimate:M
+      - risk:M
+    area: systems
+    estimate: M
+    risk: M
+    body:
+      what: Implement incoming/active/recovering states and surface them in the HUD.
+      why: 'Fairness: players need warnings and clear feedback to react.'
+      definition_of_done:
+        - Hazard states are explicit and driven by tick sim
+        - HUD shows state + time-to-impact (or severity) clearly
+        - States persist correctly through save/load
+      system: hazards
+      priority: P1
+    parent_epic: 'EPIC: M2 — Biome 1 hazard tuning & mitigation variety'
+  - type: feature
+    title: 'feat: Implement 3 mitigation options (upgrade/item/behavior)'
+    raw_title: Implement 3 mitigation options (upgrade/item/behavior)
+    labels:
+      - type:feature
+      - area:systems
+      - sys:hazards
+      - estimate:M
+      - risk:M
+    area: systems
+    estimate: M
+    risk: M
+    body:
+      what: 'Add 3 ways to mitigate hazard: one upgrade, one consumable/item, one behavioral lever (e.g., shelter mode).'
+      why: Counterplay makes hazard interesting rather than annoying.
+      definition_of_done:
+        - 3 mitigations exist and are surfaced to the player
+        - Mitigations have costs/tradeoffs
+        - Mitigations work with deterministic tick sim
+      system: hazards
+      priority: P1
+    parent_epic: 'EPIC: M2 — Biome 1 hazard tuning & mitigation variety'
+  - type: chore
+    title: 'chore: Tune hazard parameters for Biome 1 baseline'
+    raw_title: Tune hazard parameters for Biome 1 baseline
+    labels:
+      - type:chore
+      - area:balance
+      - sys:hazards
+      - estimate:S
+      - risk:M
+    area: balance
+    estimate: S
+    risk: M
+    body:
+      what: Adjust hazard frequency/intensity thresholds to align with Biome 1 pacing targets.
+      why: Hazard should pressure, not hard-stop, especially early.
+      definition_of_done:
+        - Hazard feels survivable with good play and mitigation
+        - Early runs get warning time to respond
+        - Notes recorded (what changed and why)
+      system: hazards
+      priority: P2
+      chore_type: project hygiene / content authoring
+    parent_epic: 'EPIC: M2 — Biome 1 hazard tuning & mitigation variety'
+  - type: feature
+    title: 'feat: Add 2 events that interact with hazard (buff/debuff)'
+    raw_title: Add 2 events that interact with hazard (buff/debuff)
+    labels:
+      - type:feature
+      - area:content
+      - sys:events
+      - estimate:S
+      - risk:M
+    area: content
+    estimate: S
+    risk: M
+    body:
+      what: Create two events whose outcomes affect hazard (e.g., calm weather, storm surge).
+      why: Cross-system interactions create emergent runs and better stories.
+      definition_of_done:
+        - 2 events implemented with hazard effects
+        - Effects are deterministic and visible in HUD/notification
+        - Save/load retains modified hazard state
+      system: events
+      priority: P2
+    parent_epic: 'EPIC: M2 — Biome 1 hazard tuning & mitigation variety'
+  - type: bug
+    title: 'bug: Review game-over fairness + add warnings'
+    raw_title: Review game-over fairness + add warnings
+    labels:
+      - type:bug
+      - area:systems
+      - sys:hazards
+      - estimate:S
+      - risk:M
+    area: systems
+    estimate: S
+    risk: M
+    body:
+      what: Audit game-over triggers related to hazard and add warnings/grace periods where needed.
+      why: Deaths should feel earned, not like a surprise tax.
+      definition_of_done:
+        - Game-over conditions have clear warning thresholds
+        - At least one grace mechanic exists (e.g., last-chance event or short buffer)
+        - No regressions in determinism
+      system: hazards
+      priority: P1
+    parent_epic: 'EPIC: M2 — Biome 1 hazard tuning & mitigation variety'
+  - type: chore
+    title: 'chore: Define content folder structure + conventions (Biome 1)'
+    raw_title: Define content folder structure + conventions (Biome 1)
+    labels:
+      - type:chore
+      - area:tooling
+      - sys:tooling
+      - estimate:S
+      - risk:L
+    area: tooling
+    estimate: S
+    risk: L
+    body:
+      what: Create a consistent folder layout for Biome 1 content assets (events, upgrades, configs).
+      why: Keeps the project maintainable as content grows.
+      definition_of_done:
+        - Folder structure exists under Assets/Game/Content/Biome1 (or agreed path)
+        - Naming conventions documented in README or Docs/ContentAuthoring.md
+        - Existing assets migrated (if any) without broken refs
+      system: tooling
+      priority: P2
+      chore_type: tooling (scripts, CI, automation)
+    parent_epic: 'EPIC: M2 — Content pipeline & authoring workflow (Biome 1)'
+  - type: tech-debt
+    title: 'tech-debt: Add validation for content assets (ranges, refs, duplicates)'
+    raw_title: Add validation for content assets (ranges, refs, duplicates)
+    labels:
+      - type:tech-debt
+      - area:tooling
+      - sys:tooling
+      - estimate:M
+      - risk:M
+    area: tooling
+    estimate: M
+    risk: M
+    body:
+      what: Add validation checks in editor or dev runtime for common content errors.
+      why: Catching mistakes early saves hours and prevents broken builds.
+      definition_of_done:
+        - Validator detects duplicate ids and missing references
+        - Validator detects invalid ranges (e.g., negative weights, costs)
+        - Validation can be run manually and/or on play mode start (dev only)
+      system: tooling
+      priority: P2
+    parent_epic: 'EPIC: M2 — Content pipeline & authoring workflow (Biome 1)'
+  - type: chore
+    title: 'chore: Docs/ContentAuthoring.md (events + upgrades)'
+    raw_title: Docs/ContentAuthoring.md (events + upgrades)
+    labels:
+      - type:chore
+      - area:docs
+      - sys:docs
+      - estimate:S
+      - risk:L
+    area: docs
+    estimate: S
+    risk: L
+    body:
+      what: Write a how-to doc for adding a new event and a new upgrade (step-by-step).
+      why: Future you will forget. This is the antidote.
+      definition_of_done:
+        - Docs/ContentAuthoring.md exists
+        - Includes examples for events and upgrades
+        - Links to folder conventions and validation steps
+      system: docs
+      priority: P2
+      chore_type: project hygiene / content authoring
+    parent_epic: 'EPIC: M2 — Content pipeline & authoring workflow (Biome 1)'
+  - type: chore
+    title: 'chore: Add lightweight editor helpers (optional) (e.g., menu items)'
+    raw_title: Add lightweight editor helpers (optional) (e.g., menu items)
+    labels:
+      - type:chore
+      - area:tooling
+      - sys:tooling
+      - estimate:S
+      - risk:L
+    area: tooling
+    estimate: S
+    risk: L
+    body:
+      what: 'Add small editor conveniences: ''Create Event'', ''Create Upgrade'', ''Run Validation''.'
+      why: Reduce friction when adding content and keep structure consistent.
+      definition_of_done:
+        - At least 2 helper actions exist in Unity menu
+        - Helpers create assets in correct folders with sane defaults
+        - No editor errors/spam on use
+      system: tooling
+      priority: P3
+      chore_type: tooling (scripts, CI, automation)
+    parent_epic: 'EPIC: M2 — Content pipeline & authoring workflow (Biome 1)'
