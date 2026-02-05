@@ -46,16 +46,20 @@ jobs:
 
       - name: Import issues (or dry-run)
         uses: actions/github-script@v7
+        env:
+          YAML_PATH: ${{ inputs.yaml_path }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          UPDATE_EPIC_CHECKLISTS: ${{ inputs.update_parent_epic_checklists }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require("fs");
             const yaml = require("js-yaml");
 
-            // Read inputs (and log them)
-            const yamlPath = (core.getInput("yaml_path") || "").trim();
-            const dryRun = ((core.getInput("dry_run") || "true").trim() === "true");
-            const updateEpic = ((core.getInput("update_parent_epic_checklists") || "false").trim() === "true");
+            // IMPORTANT: workflow_dispatch inputs come via env (or context.payload.inputs)
+            const yamlPath = (process.env.YAML_PATH || "").trim();
+            const dryRun = ((process.env.DRY_RUN || "true").trim() === "true");
+            const updateEpic = ((process.env.UPDATE_EPIC_CHECKLISTS || "false").trim() === "true");
 
             core.info(`Inputs received -> yaml_path="${yamlPath}", dry_run=${dryRun}, update_parent_epic_checklists=${updateEpic}`);
 
@@ -156,7 +160,7 @@ jobs:
 
               const updated = body.replace(re, `- [ ] #${createdNum} ${rawTitle}`);
               if (dryRun) {
-                core.info(`[DRY-RUN] Would update epic #${epic.number} checklist line: "${rawTitle}" -> "#${createdNum} ${rawTitle}"`);
+                core.info(`[DRY-RUN] Would update epic #${epic.number} checklist: "${rawTitle}" -> "#${createdNum} ${rawTitle}"`);
                 return true;
               }
 
@@ -176,7 +180,6 @@ jobs:
 
               const exists = await issueExistsExactTitle(title);
 
-              // find parent epic (optional)
               let epic = null;
               if (item.parent_epic) epic = await findEpicByTitle(item.parent_epic);
 
