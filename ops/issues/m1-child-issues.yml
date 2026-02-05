@@ -1,0 +1,873 @@
+milestone_number: 2
+issues:
+  - title: 'feat: Create GameRoot scene + bootstrap flow (MainMenu -> Run)'
+    raw_title: Create GameRoot scene + bootstrap flow (MainMenu -> Run)
+    type: feature
+    area: Sim
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:m
+      - risk:med
+      - sys:sim
+      - p1
+    parent_epic: 'EPIC: M1 — Run loop + bootstrap (game entry + session)'
+    body:
+      what: Create a minimal startup flow that boots into a playable run (no content yet).
+      why: All later systems need a stable entry point and consistent lifecycle.
+      definition_of_done:
+        - GameRoot scene loads without errors
+        - Can start a new run from Main Menu
+        - Can return to menu / quit cleanly
+        - Run session object exists and is accessible to systems
+      system: sys:sim
+      priority: p1
+  - title: 'feat: Implement run session state machine (Boot/Running/Paused/GameOver)'
+    raw_title: Implement run session state machine (Boot/Running/Paused/GameOver)
+    type: feature
+    area: Sim
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:m
+      - risk:med
+      - sys:sim
+      - p1
+    parent_epic: 'EPIC: M1 — Run loop + bootstrap (game entry + session)'
+    body:
+      what: Implement a clear session state machine and events for transitions.
+      why: Prevents spaghetti lifecycle; makes save/load and pause predictable.
+      definition_of_done:
+        - Session transitions are explicit and logged
+        - Pause/resume works without duplicating ticks
+        - GameOver state blocks input + sim
+        - Unit/integration test or debug command proves transitions
+      system: sys:sim
+      priority: p1
+  - title: 'chore: Add simple input map for pause + speed controls (1x/2x/4x)'
+    raw_title: Add simple input map for pause + speed controls (1x/2x/4x)
+    type: feature
+    area: UI
+    estimate: S
+    risk: Low
+    labels:
+      - type:chore
+      - area:ui
+      - est:s
+      - risk:low
+      - sys:ui
+      - p2
+    parent_epic: 'EPIC: M1 — Run loop + bootstrap (game entry + session)'
+    body:
+      what: Add basic keybinds for pause and time-scale controls used in testing.
+      why: Accelerates iteration; reduces manual clicking.
+      definition_of_done:
+        - Pause key toggles pause reliably
+        - Time scale keys set 1x/2x/4x
+        - Displayed somewhere in DevHUD
+      system: sys:ui
+      priority: p2
+      chore_type: tooling (scripts, CI, automation)
+  - title: 'chore: Add basic scene loading guardrails (singletons, duplicate prevention)'
+    raw_title: Add basic scene loading guardrails (singletons, duplicate prevention)
+    type: feature
+    area: Build
+    estimate: S
+    risk: Low
+    labels:
+      - type:chore
+      - area:build
+      - est:s
+      - risk:low
+      - sys:build-ci
+      - p2
+    parent_epic: 'EPIC: M1 — Run loop + bootstrap (game entry + session)'
+    body:
+      what: Prevent duplicate bootstrap objects and ensure scenes load in the correct order.
+      why: Avoids the classic Unity 'two GameManagers' death spiral.
+      definition_of_done:
+        - Duplicate singleton instances are detected and destroyed
+        - Bootstrap objects persist correctly across scenes
+        - No warnings/errors on repeated start/stop cycles
+      system: sys:build-ci
+      priority: p2
+      chore_type: tooling (scripts, CI, automation)
+  - title: 'feat: Define world seed format + deterministic RNG utilities'
+    raw_title: Define world seed format + deterministic RNG utilities
+    type: feature
+    area: Sim
+    estimate: S
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:s
+      - risk:med
+      - sys:procgen
+      - p1
+    parent_epic: 'EPIC: M1 — Seeded island gen v0 (tiles/heightmap)'
+    body:
+      what: Define seed (string/int) format and RNG utilities to guarantee determinism.
+      why: Procedural + reproducible runs are core to your design.
+      definition_of_done:
+        - Seed can be set/printed in DevHUD
+        - Same seed produces same random sequence across sessions
+        - RNG utilities documented and used by gen code
+      system: sys:procgen
+      priority: p1
+  - title: 'feat: Implement island grid v0 (tilemap or logical grid) with basic terrain types'
+    raw_title: Implement island grid v0 (tilemap or logical grid) with basic terrain types
+    type: feature
+    area: Sim
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:m
+      - risk:med
+      - sys:procgen
+      - p1
+    parent_epic: 'EPIC: M1 — Seeded island gen v0 (tiles/heightmap)'
+    body:
+      what: Create a simple island representation (grid or heightmap) with a few terrain types (sand/grass/rock/water).
+      why: Enables placement of resources, hazards, and pathing later.
+      definition_of_done:
+        - Island data structure exists (serializable)
+        - At least 4 terrain types generated
+        - Renders in scene (debug colors ok)
+        - Generation time < 200ms for default size (dev machine)
+      system: sys:procgen
+      priority: p1
+  - title: 'feat: Add spawn rules for Johnny + initial camp location (safe tile)'
+    raw_title: Add spawn rules for Johnny + initial camp location (safe tile)
+    type: feature
+    area: Sim
+    estimate: S
+    risk: Low
+    labels:
+      - type:feature
+      - area:sim
+      - est:s
+      - risk:low
+      - sys:procgen
+      - p1
+    parent_epic: 'EPIC: M1 — Seeded island gen v0 (tiles/heightmap)'
+    body:
+      what: Choose a safe spawn tile and initial 'camp' anchor point.
+      why: Prevents unwinnable starts and gives the UI something to focus on.
+      definition_of_done:
+        - Spawn is always on valid walkable terrain
+        - Camp anchor is stored in run state
+        - Edge cases handled (tiny islands / mostly water)
+      system: sys:procgen
+      priority: p1
+  - title: 'feat: Place resource nodes v0 (wood/food/scrap) with seeded distribution'
+    raw_title: Place resource nodes v0 (wood/food/scrap) with seeded distribution
+    type: feature
+    area: Sim
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:m
+      - risk:med
+      - sys:procgen
+      - p1
+    parent_epic: 'EPIC: M1 — Seeded island gen v0 (tiles/heightmap)'
+    body:
+      what: Generate a few resource node types with deterministic placement and densities.
+      why: Vertical slice needs a simple economy loop.
+      definition_of_done:
+        - At least 3 node types exist
+        - Counts/densities configurable
+        - Nodes render with simple icons/markers
+        - Same seed => same placements
+      system: sys:procgen
+      priority: p1
+  - title: 'feat: Create time/tick service (fixed tick) decoupled from Unity Update'
+    raw_title: Create time/tick service (fixed tick) decoupled from Unity Update
+    type: feature
+    area: Sim
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:m
+      - risk:med
+      - sys:sim
+      - p1
+    parent_epic: 'EPIC: M1 — Tick simulation (time/resources/progression)'
+    body:
+      what: Implement a tick loop that drives simulation at a fixed rate and supports pausing/time scale.
+      why: Idle-style gameplay needs consistent progression and deterministic state updates.
+      definition_of_done:
+        - Tick loop runs at configurable ticks/sec
+        - Pause stops ticks
+        - Time scale multiplies tick rate safely
+        - Tick events are observable (for UI/logging)
+      system: sys:sim
+      priority: p1
+  - title: 'feat: Implement resource economy v0 (wood/food/scrap) with income/decay'
+    raw_title: Implement resource economy v0 (wood/food/scrap) with income/decay
+    type: feature
+    area: Sim
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:m
+      - risk:med
+      - sys:sim
+      - p1
+    parent_epic: 'EPIC: M1 — Tick simulation (time/resources/progression)'
+    body:
+      what: Model core resources with incomes and optional decay/spoilage.
+      why: Forms the heartbeat loop of 'gather -> craft -> progress'.
+      definition_of_done:
+        - Resources stored in run state
+        - Tick updates incomes/decay correctly
+        - Cannot go negative (unless designed)
+        - UI/DevHUD shows current values + deltas
+      system: sys:sim
+      priority: p1
+  - title: 'feat: Add upgrade system v0 (simple costs + effects) for 3 upgrades'
+    raw_title: Add upgrade system v0 (simple costs + effects) for 3 upgrades
+    type: feature
+    area: Sim
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:m
+      - risk:med
+      - sys:sim
+      - p1
+    parent_epic: 'EPIC: M1 — Tick simulation (time/resources/progression)'
+    body:
+      what: Implement a minimal upgrade system with costs and effects (e.g., +income, -decay).
+      why: Upgrades provide progression and player choice.
+      definition_of_done:
+        - At least 3 upgrades exist with meaningful effects
+        - Upgrade purchase checks affordability
+        - Effects apply immediately and persist in run state
+        - Upgrade definitions are data-driven (ScriptableObject or JSON)
+      system: sys:sim
+      priority: p1
+  - title: 'feat: Add ''work assignment'' v0 (auto-gather from nearby nodes)'
+    raw_title: Add 'work assignment' v0 (auto-gather from nearby nodes)
+    type: feature
+    area: Sim
+    estimate: L
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:l
+      - risk:med
+      - sys:sim
+      - p1
+    parent_epic: 'EPIC: M1 — Tick simulation (time/resources/progression)'
+    body:
+      what: 'Implement a simple auto-gather rule: each tick collects from selected node types (no pathing yet).'
+      why: Keeps vertical slice simple while still feeling like a system.
+      definition_of_done:
+        - Player can choose focus (wood/food/scrap) in UI/DevHUD
+        - Tick collects based on focus and node availability
+        - Node depletion is modeled (even crudely)
+        - No null refs when nodes run out
+      system: sys:sim
+      priority: p1
+  - title: 'feat: Define save schema v0 for run state (versioned)'
+    raw_title: Define save schema v0 for run state (versioned)
+    type: feature
+    area: Save
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:save
+      - est:m
+      - risk:med
+      - sys:save-load
+      - p1
+    parent_epic: 'EPIC: M1 — Save/Load v0 (resume reliable)'
+    body:
+      what: Define what the run save contains (seed, island, resources, upgrades, hazard state) and include schema versioning.
+      why: Vertical slice requires save/load to prove persistence and future migrations.
+      definition_of_done:
+        - Schema includes version field
+        - All critical run state fields mapped
+        - Saved file can be inspected (JSON) or via debug dump
+        - Documented in Docs/SaveFormat.md
+      system: sys:save-load
+      priority: p1
+  - title: 'feat: Implement save to disk + load from disk (single slot v0)'
+    raw_title: Implement save to disk + load from disk (single slot v0)
+    type: feature
+    area: Save
+    estimate: L
+    risk: Med
+    labels:
+      - type:feature
+      - area:save
+      - est:l
+      - risk:med
+      - sys:save-load
+      - p1
+    parent_epic: 'EPIC: M1 — Save/Load v0 (resume reliable)'
+    body:
+      what: Create save/load pipeline with a single slot, including validation and error handling.
+      why: Proves the run can be resumed and supports future mobile constraints.
+      definition_of_done:
+        - Can save manually via button/hotkey
+        - On restart, game loads last save automatically (configurable)
+        - Corrupt save handled gracefully (fallback to new run)
+        - No data loss for covered fields
+      system: sys:save-load
+      priority: p1
+  - title: 'feat: Add autosave cadence (every N ticks / on important events)'
+    raw_title: Add autosave cadence (every N ticks / on important events)
+    type: feature
+    area: Save
+    estimate: M
+    risk: Low
+    labels:
+      - type:feature
+      - area:save
+      - est:m
+      - risk:low
+      - sys:save-load
+      - p2
+    parent_epic: 'EPIC: M1 — Save/Load v0 (resume reliable)'
+    body:
+      what: Autosave periodically and after key events (upgrade purchase, escape).
+      why: Prevents rage-quits and aligns with idle/mobile expectations.
+      definition_of_done:
+        - Autosave interval configurable
+        - Event-driven autosave hooks exist
+        - Autosave is rate-limited (no spam writes)
+        - UI/DevHUD indicates last save time
+      system: sys:save-load
+      priority: p2
+  - title: 'feat: Choose hazard mechanic v1 and spec it (storm / hunger / heat)'
+    raw_title: Choose hazard mechanic v1 and spec it (storm / hunger / heat)
+    type: feature
+    area: Sim
+    estimate: S
+    risk: Low
+    labels:
+      - type:feature
+      - area:sim
+      - est:s
+      - risk:low
+      - sys:hazards
+      - p1
+    parent_epic: 'EPIC: M1 — Hazard v1 (one mechanic that matters)'
+    body:
+      what: Pick one hazard that changes strategy and write a short spec for its rules.
+      why: Keeps the slice coherent and prevents scope creep.
+      definition_of_done:
+        - Hazard type chosen and documented in Docs/Hazards.md
+        - Trigger conditions and effects defined
+        - Counters/mitigations defined (at least one upgrade)
+      system: sys:hazards
+      priority: p1
+  - title: 'feat: Implement hazard state + tick integration (v1)'
+    raw_title: Implement hazard state + tick integration (v1)
+    type: feature
+    area: Sim
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:m
+      - risk:med
+      - sys:hazards
+      - p1
+    parent_epic: 'EPIC: M1 — Hazard v1 (one mechanic that matters)'
+    body:
+      what: Implement hazard state machine and integrate into tick loop.
+      why: Adds tension and choices to the otherwise linear resource loop.
+      definition_of_done:
+        - Hazard activates and resolves based on spec
+        - Effects modify resources/progression meaningfully
+        - Hazard state is saved/loaded correctly
+        - UI/DevHUD shows hazard status
+      system: sys:hazards
+      priority: p1
+  - title: 'feat: Add one mitigation upgrade/item that counters hazard (v1)'
+    raw_title: Add one mitigation upgrade/item that counters hazard (v1)
+    type: feature
+    area: Sim
+    estimate: S
+    risk: Low
+    labels:
+      - type:feature
+      - area:sim
+      - est:s
+      - risk:low
+      - sys:hazards
+      - p2
+    parent_epic: 'EPIC: M1 — Hazard v1 (one mechanic that matters)'
+    body:
+      what: Add a mitigation lever (upgrade) that reduces hazard impact.
+      why: Hazards must be interactable, not just punishment.
+      definition_of_done:
+        - Mitigation affects hazard outcome (measurable)
+        - Upgrade is purchasable and persists
+        - Tuning values configurable
+      system: sys:hazards
+      priority: p2
+  - title: 'feat: Replace DevHUD-only with minimal player HUD (resources + time + hazard)'
+    raw_title: Replace DevHUD-only with minimal player HUD (resources + time + hazard)
+    type: feature
+    area: UI
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:ui
+      - est:m
+      - risk:med
+      - sys:ui
+      - p1
+    parent_epic: 'EPIC: M1 — Minimal UI (DevHUD -> Player HUD)'
+    body:
+      what: Create a minimal HUD that shows resources, time/tick rate, and hazard status.
+      why: Vertical slice should be playable without dev tools.
+      definition_of_done:
+        - HUD visible in Run state
+        - Resources displayed with readable formatting
+        - Hazard status displayed clearly
+        - No layout breaks at common resolutions
+      system: sys:ui
+      priority: p1
+  - title: 'feat: Add upgrade screen/panel v0 (list, cost, buy button)'
+    raw_title: Add upgrade screen/panel v0 (list, cost, buy button)
+    type: feature
+    area: UI
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:ui
+      - est:m
+      - risk:med
+      - sys:ui
+      - p1
+    parent_epic: 'EPIC: M1 — Minimal UI (DevHUD -> Player HUD)'
+    body:
+      what: Provide a simple UI to view and buy upgrades.
+      why: This is the player-facing interaction for progression.
+      definition_of_done:
+        - Lists available upgrades with costs + effects
+        - Disabled state when unaffordable
+        - Purchase triggers autosave hook
+        - Supports controller/mouse basic navigation
+      system: sys:ui
+      priority: p1
+  - title: 'feat: Add run summary panel (seed, days survived, key stats)'
+    raw_title: Add run summary panel (seed, days survived, key stats)
+    type: feature
+    area: UI
+    estimate: S
+    risk: Low
+    labels:
+      - type:feature
+      - area:ui
+      - est:s
+      - risk:low
+      - sys:ui
+      - p2
+    parent_epic: 'EPIC: M1 — Minimal UI (DevHUD -> Player HUD)'
+    body:
+      what: Add a small summary panel for the run (seed, elapsed time, stats).
+      why: Helps debugging and later supports prestige/analytics.
+      definition_of_done:
+        - Shows seed and elapsed time
+        - Shows at least 3 useful stats (income, upgrades bought, hazards survived)
+        - Accessible from pause menu
+      system: sys:ui
+      priority: p2
+  - title: 'feat: Define escape win condition v0 (boat/raft progress bar)'
+    raw_title: Define escape win condition v0 (boat/raft progress bar)
+    type: feature
+    area: Sim
+    estimate: S
+    risk: Low
+    labels:
+      - type:feature
+      - area:sim
+      - est:s
+      - risk:low
+      - sys:progression
+      - p1
+    parent_epic: 'EPIC: M1 — Escape + prestige (reset with carry-over)'
+    body:
+      what: Define the escape condition and its required resources/progress.
+      why: Vertical slice needs a concrete 'goal' with payoff.
+      definition_of_done:
+        - Escape condition documented (Docs/Escape.md)
+        - Progress metric defined (e.g., raft parts crafted)
+        - UI can display progress
+      system: sys:progression
+      priority: p1
+  - title: 'feat: Implement escape progress system v0 (craft parts over time)'
+    raw_title: Implement escape progress system v0 (craft parts over time)
+    type: feature
+    area: Sim
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:m
+      - risk:med
+      - sys:progression
+      - p1
+    parent_epic: 'EPIC: M1 — Escape + prestige (reset with carry-over)'
+    body:
+      what: Implement an escape progress track that consumes resources and advances over ticks.
+      why: Creates a mid/late-run sink and a reason to optimize economy.
+      definition_of_done:
+        - Progress increases based on craft rules
+        - Consumes resources safely
+        - Progress persists in save/load
+        - UI shows progress and remaining requirements
+      system: sys:progression
+      priority: p1
+  - title: 'feat: Implement prestige v0 (on escape: reset run but keep one bonus)'
+    raw_title: 'Implement prestige v0 (on escape: reset run but keep one bonus)'
+    type: feature
+    area: Sim
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:m
+      - risk:med
+      - sys:progression
+      - p1
+    parent_epic: 'EPIC: M1 — Escape + prestige (reset with carry-over)'
+    body:
+      what: On escape, reset run state but carry forward a small bonus (currency or permanent upgrade).
+      why: Prestige is the long-term loop; proves replayability.
+      definition_of_done:
+        - Escape triggers GameOver/Win flow
+        - New run starts on a new seed (unless overridden)
+        - At least one persistent bonus applied
+        - Prestige state saved/loaded
+      system: sys:progression
+      priority: p1
+  - title: 'feat: Add ''new island'' transition v0 (simple cut + new gen)'
+    raw_title: Add 'new island' transition v0 (simple cut + new gen)
+    type: feature
+    area: UI
+    estimate: S
+    risk: Low
+    labels:
+      - type:feature
+      - area:ui
+      - est:s
+      - risk:low
+      - sys:ui
+      - p2
+    parent_epic: 'EPIC: M1 — Escape + prestige (reset with carry-over)'
+    body:
+      what: Add a minimal transition when escaping to a new island (fade, message, continue).
+      why: Makes the prestige loop feel intentional instead of a reset button.
+      definition_of_done:
+        - Transition happens after escape
+        - New run uses new seed
+        - No leftover objects from previous run
+      system: sys:ui
+      priority: p2
+  - title: 'tech-debt: Add sanity tests for determinism (seeded gen + tick)'
+    raw_title: 'tech-debt: Add sanity tests for determinism (seeded gen + tick)'
+    type: feature
+    area: Build
+    estimate: M
+    risk: Med
+    labels:
+      - type:tech-debt
+      - area:build
+      - est:m
+      - risk:med
+      - sys:build-ci
+      - p2
+    parent_epic: 'EPIC: M1 — Vertical slice hardening (stability/perf/docs)'
+    body:
+      what: Add lightweight tests that verify determinism for key components.
+      why: Procedural games rot fast without determinism checks.
+      definition_of_done:
+        - Given seed X, island hash matches expected value
+        - Given seed X, tick simulation after N ticks matches expected snapshot
+        - Tests runnable in CI (headless if possible) or as editor tests
+      system: sys:build-ci
+      priority: p2
+  - title: 'chore: Add performance counters to DevHUD (fps, tick time, allocations)'
+    raw_title: Add performance counters to DevHUD (fps, tick time, allocations)
+    type: feature
+    area: UI
+    estimate: S
+    risk: Low
+    labels:
+      - type:chore
+      - area:ui
+      - est:s
+      - risk:low
+      - sys:ui
+      - p2
+    parent_epic: 'EPIC: M1 — Vertical slice hardening (stability/perf/docs)'
+    body:
+      what: Display basic performance stats to catch spikes early.
+      why: Polish later is easier if you see perf issues now.
+      definition_of_done:
+        - Shows FPS
+        - Shows tick duration (ms)
+        - Shows GC allocations (approx) or GC events
+      system: sys:ui
+      priority: p2
+      chore_type: tooling (scripts, CI, automation)
+  - title: 'chore: Write Docs/VerticalSlice.md (how to run, goals, controls)'
+    raw_title: Write Docs/VerticalSlice.md (how to run, goals, controls)
+    type: feature
+    area: Build
+    estimate: S
+    risk: Low
+    labels:
+      - type:chore
+      - area:build
+      - est:s
+      - risk:low
+      - sys:build-ci
+      - p2
+    parent_epic: 'EPIC: M1 — Vertical slice hardening (stability/perf/docs)'
+    body:
+      what: 'Create short documentation for the vertical slice: how to start a run, save/load, escape, and known limitations.'
+      why: Reduces context loss and makes it easier to bring collaborators later.
+      definition_of_done:
+        - Doc exists and is linked from README
+        - Includes controls + debug controls
+        - Includes what 'done' means for M1
+      system: sys:build-ci
+      priority: p2
+      chore_type: tooling (scripts, CI, automation)
+  - title: 'bug: Fix any domain reload / play-mode re-entry issues (no duplicate managers)'
+    raw_title: Fix any domain reload / play-mode re-entry issues (no duplicate managers)
+    type: feature
+    area: Build
+    estimate: S
+    risk: Med
+    labels:
+      - type:bug
+      - area:build
+      - est:s
+      - risk:med
+      - sys:build-ci
+      - p1
+    parent_epic: 'EPIC: M1 — Vertical slice hardening (stability/perf/docs)'
+    body:
+      what: Ensure entering/exiting play mode repeatedly doesn't create duplicates or break services.
+      why: Unity iteration speed depends on stable play mode cycles.
+      definition_of_done:
+        - No duplicate singletons after 10 play-mode cycles
+        - No exceptions on exit
+        - State resets cleanly between runs
+      system: sys:build-ci
+      priority: p1
+  - title: 'config: Add run config asset (tick rate, island size, densities) with defaults'
+    raw_title: Add run config asset (tick rate, island size, densities) with defaults
+    type: config
+    area: Save
+    estimate: S
+    risk: Low
+    labels:
+      - type:config
+      - area:save
+      - est:s
+      - risk:low
+      - sys:sim
+      - p2
+    parent_epic: 'EPIC: M1 — Tick simulation (time/resources/progression)'
+    body:
+      what: Create a config asset for tuning key parameters (tick rate, island size, resource densities).
+      why: Tuning without code changes makes iteration fast and safer.
+      definition_of_done:
+        - Config asset exists with sensible defaults
+        - Config is loaded by services at runtime
+        - DevHUD prints active config values
+      system: sys:sim
+      priority: p2
+  - title: 'feat: Add basic audio toggle + placeholder SFX hooks (upgrade buy, hazard)'
+    raw_title: Add basic audio toggle + placeholder SFX hooks (upgrade buy, hazard)
+    type: feature
+    area: UI
+    estimate: S
+    risk: Low
+    labels:
+      - type:feature
+      - area:ui
+      - est:s
+      - risk:low
+      - sys:ui
+      - p3
+    parent_epic: 'EPIC: M1 — Minimal UI (DevHUD -> Player HUD)'
+    body:
+      what: Add basic audio toggle + placeholder SFX hooks (upgrade buy, hazard)
+      why: Completes the vertical slice loop and improves playability.
+      definition_of_done:
+        - Implemented
+        - No errors in console
+        - Visible/usable in game flow
+      system: sys:ui
+      priority: p3
+  - title: 'feat: Add pause menu v0 (resume, save, quit)'
+    raw_title: Add pause menu v0 (resume, save, quit)
+    type: feature
+    area: UI
+    estimate: S
+    risk: Low
+    labels:
+      - type:feature
+      - area:ui
+      - est:s
+      - risk:low
+      - sys:ui
+      - p2
+    parent_epic: 'EPIC: M1 — Minimal UI (DevHUD -> Player HUD)'
+    body:
+      what: Add pause menu v0 (resume, save, quit)
+      why: Completes the vertical slice loop and improves playability.
+      definition_of_done:
+        - Implemented
+        - No errors in console
+        - Visible/usable in game flow
+      system: sys:ui
+      priority: p2
+  - title: 'feat: Add simple notification/toast system (e.g., ''Saved'', ''Hazard active'')'
+    raw_title: Add simple notification/toast system (e.g., 'Saved', 'Hazard active')
+    type: feature
+    area: UI
+    estimate: S
+    risk: Low
+    labels:
+      - type:feature
+      - area:ui
+      - est:s
+      - risk:low
+      - sys:ui
+      - p2
+    parent_epic: 'EPIC: M1 — Minimal UI (DevHUD -> Player HUD)'
+    body:
+      what: Add simple notification/toast system (e.g., 'Saved', 'Hazard active')
+      why: Completes the vertical slice loop and improves playability.
+      definition_of_done:
+        - Implemented
+        - No errors in console
+        - Visible/usable in game flow
+      system: sys:ui
+      priority: p2
+  - title: 'feat: Add run stats tracking (days survived, resources earned, upgrades bought)'
+    raw_title: Add run stats tracking (days survived, resources earned, upgrades bought)
+    type: feature
+    area: Sim
+    estimate: S
+    risk: Low
+    labels:
+      - type:feature
+      - area:sim
+      - est:s
+      - risk:low
+      - sys:sim
+      - p2
+    parent_epic: 'EPIC: M1 — Tick simulation (time/resources/progression)'
+    body:
+      what: Add run stats tracking (days survived, resources earned, upgrades bought)
+      why: Completes the vertical slice loop and improves playability.
+      definition_of_done:
+        - Implemented
+        - No errors in console
+        - Visible/usable in game flow
+      system: sys:sim
+      priority: p2
+  - title: 'feat: Add simple ''game over'' condition (starvation / hazard failure)'
+    raw_title: Add simple 'game over' condition (starvation / hazard failure)
+    type: feature
+    area: Sim
+    estimate: M
+    risk: Med
+    labels:
+      - type:feature
+      - area:sim
+      - est:m
+      - risk:med
+      - sys:hazards
+      - p2
+    parent_epic: 'EPIC: M1 — Hazard v1 (one mechanic that matters)'
+    body:
+      what: Add simple 'game over' condition (starvation / hazard failure)
+      why: Completes the vertical slice loop and improves playability.
+      definition_of_done:
+        - Implemented
+        - No errors in console
+        - Visible/usable in game flow
+      system: sys:hazards
+      priority: p2
+  - title: 'tech-debt: Refactor data defs into ScriptableObjects (Upgrades, Resources)'
+    raw_title: 'tech-debt: Refactor data defs into ScriptableObjects (Upgrades, Resources)'
+    type: feature
+    area: Sim
+    estimate: M
+    risk: Med
+    labels:
+      - type:tech-debt
+      - area:sim
+      - est:m
+      - risk:med
+      - sys:sim
+      - p3
+    parent_epic: 'EPIC: M1 — Tick simulation (time/resources/progression)'
+    body:
+      what: Refactor data defs into ScriptableObjects (Upgrades, Resources)
+      why: Completes the vertical slice loop and improves playability.
+      definition_of_done:
+        - Implemented
+        - No errors in console
+        - Visible/usable in game flow
+      system: sys:sim
+      priority: p3
+  - title: 'chore: Add README badges + quickstart (Unity version, how to open)'
+    raw_title: Add README badges + quickstart (Unity version, how to open)
+    type: feature
+    area: Build
+    estimate: XS
+    risk: Low
+    labels:
+      - type:chore
+      - area:build
+      - est:xs
+      - risk:low
+      - sys:build-ci
+      - p3
+    parent_epic: 'EPIC: M1 — Vertical slice hardening (stability/perf/docs)'
+    body:
+      what: Add README badges + quickstart (Unity version, how to open)
+      why: Completes the vertical slice loop and improves playability.
+      definition_of_done:
+        - Implemented
+        - No errors in console
+        - Visible/usable in game flow
+      system: sys:build-ci
+      priority: p3
