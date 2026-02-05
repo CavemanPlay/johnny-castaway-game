@@ -1,0 +1,697 @@
+milestone: "M0 – Project Bootstrap"
+issues:
+  # -------------------------
+  # EPIC: M0 — Repo + Project wiring
+  # -------------------------
+  - title: "chore: Create/verify milestones M0–M4 with exit criteria"
+    raw_title: "Create/verify milestones M0–M4 with exit criteria"
+    type: "chore"
+    area: "Build"
+    estimate: "XS"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:xs", "risk:low", "sys:build-ci", "p1"]
+    parent_epic: "EPIC: M0 — Repo + Project wiring"
+    body:
+      chore_type: "tooling (scripts, CI, automation)"
+      what: "Create/verify milestones M0–M4 with exit criteria"
+      why: "Keeps the roadmap executable and prevents orphan work."
+      definition_of_done:
+        - "Milestones exist and have clear descriptions"
+        - "Exit criteria are visible in each milestone"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Repo + Project wiring"
+
+  - title: "chore: Create/verify labels (type/area/priority + est/risk if used)"
+    raw_title: "Create/verify labels (type/area/priority + est/risk if used)"
+    type: "chore"
+    area: "Build"
+    estimate: "XS"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:xs", "risk:low", "sys:build-ci", "p1"]
+    parent_epic: "EPIC: M0 — Repo + Project wiring"
+    body:
+      chore_type: "tooling (scripts, CI, automation)"
+      what: "Create/verify labels (type/area/priority + est/risk if used)"
+      why: "Enables filtering, reporting, and consistent triage."
+      definition_of_done:
+        - "Labels exist and are consistently named"
+        - "No duplicates / near-duplicates"
+        - "Committed + pushed (if label list is documented)"
+      system: "sys:build-ci"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Repo + Project wiring"
+
+  - title: "chore: Add/verify issue templates (Epic/Feature/Bug/Chore/Tech-debt)"
+    raw_title: "Add/verify issue templates (Epic/Feature/Bug/Chore/Tech-debt)"
+    type: "chore"
+    area: "Build"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:s", "risk:low", "sys:build-ci", "p1"]
+    parent_epic: "EPIC: M0 — Repo + Project wiring"
+    body:
+      chore_type: "tooling (scripts, CI, automation)"
+      what: "Add/verify issue templates (Epic/Feature/Bug/Chore/Tech-debt)"
+      why: "Makes issue creation consistent and fast."
+      definition_of_done:
+        - "Templates appear in GitHub UI"
+        - "Required fields are present"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Repo + Project wiring"
+
+  - title: "chore: Configure Project board columns + default views"
+    raw_title: "Configure Project board columns + default views"
+    type: "chore"
+    area: "Build"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:s", "risk:low", "sys:build-ci", "p1"]
+    parent_epic: "EPIC: M0 — Repo + Project wiring"
+    body:
+      chore_type: "tooling (scripts, CI, automation)"
+      what: "Configure Project board columns + default views"
+      why: "Reduces friction and keeps work visible."
+      definition_of_done:
+        - "Board has the intended columns"
+        - "At least one default view exists (Board/Table)"
+        - "Workflow feels smooth end-to-end"
+      system: "sys:build-ci"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Repo + Project wiring"
+
+  - title: "chore: Add Docs/DoD.md and lightweight CONTRIBUTING.md"
+    raw_title: "Add Docs/DoD.md and lightweight CONTRIBUTING.md"
+    type: "chore"
+    area: "Build"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:s", "risk:low", "sys:build-ci", "p1"]
+    parent_epic: "EPIC: M0 — Repo + Project wiring"
+    body:
+      chore_type: "maintenance (deps/config tidy-up)"
+      what: "Add Docs/DoD.md and lightweight CONTRIBUTING.md"
+      why: "Locks in standards so future work stays clean."
+      definition_of_done:
+        - "Docs exist and are short + practical"
+        - "DoD includes milestone/labels/PR expectations"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Repo + Project wiring"
+
+  - title: "chore: Create a test Epic + 2 child issues to validate workflow end-to-end"
+    raw_title: "Create a test Epic + 2 child issues to validate workflow end-to-end"
+    type: "chore"
+    area: "Build"
+    estimate: "XS"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:xs", "risk:low", "sys:build-ci", "p2"]
+    parent_epic: "EPIC: M0 — Repo + Project wiring"
+    body:
+      chore_type: "tooling (scripts, CI, automation)"
+      what: "Create a test Epic + 2 child issues to validate workflow end-to-end"
+      why: "Confirms your process works before real work piles up."
+      definition_of_done:
+        - "Test epic and children exist"
+        - "Moved across board states successfully"
+        - "No confusion / friction identified"
+      system: "sys:build-ci"
+      priority: "p2"
+      notes: "Parent Epic: EPIC: M0 — Repo + Project wiring"
+
+  # -------------------------
+  # EPIC: M0 — Unity project bootstrap + folder conventions
+  # -------------------------
+  - title: "feat: Create Unity project in agreed directory structure"
+    raw_title: "Create Unity project in agreed directory structure"
+    type: "feature"
+    area: "Build"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:feature", "area:build", "est:s", "risk:low", "sys:build-ci", "p0"]
+    parent_epic: "EPIC: M0 — Unity project bootstrap + folder conventions"
+    body:
+      what: "Create Unity project in agreed directory structure"
+      why: "We need a stable baseline project that opens cleanly every time."
+      definition_of_done:
+        - "Unity project opens without errors"
+        - "Project can enter Play Mode"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p0"
+      notes: "Parent Epic: EPIC: M0 — Unity project bootstrap + folder conventions"
+
+  - title: "feat: Add initial scene (Bootstrap/Empty)"
+    raw_title: "Add initial scene (Bootstrap/Empty)"
+    type: "feature"
+    area: "Build"
+    estimate: "XS"
+    risk: "Low"
+    labels: ["type:feature", "area:build", "est:xs", "risk:low", "sys:build-ci", "p0"]
+    parent_epic: "EPIC: M0 — Unity project bootstrap + folder conventions"
+    body:
+      what: "Add initial scene (Bootstrap/Empty)"
+      why: "Gives a known starting point for runtime wiring and smoke tests."
+      definition_of_done:
+        - "Scene exists under Assets/Scenes"
+        - "Scene runs in Play Mode"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p0"
+      notes: "Parent Epic: EPIC: M0 — Unity project bootstrap + folder conventions"
+
+  - title: "chore: Define Assets folder conventions (Scenes, Scripts, Art, Audio, Prefabs, ScriptableObjects, etc.)"
+    raw_title: "Define Assets folder conventions (Scenes, Scripts, Art, Audio, Prefabs, ScriptableObjects, etc.)"
+    type: "chore"
+    area: "Build"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:s", "risk:low", "sys:build-ci", "p1"]
+    parent_epic: "EPIC: M0 — Unity project bootstrap + folder conventions"
+    body:
+      chore_type: "housekeeping (renames, folder moves, cleanup)"
+      what: "Define Assets folder conventions (Scenes, Scripts, Art, Audio, Prefabs, ScriptableObjects, etc.)"
+      why: "Prevents future chaos and makes imports predictable."
+      definition_of_done:
+        - "Folder structure exists in Assets/"
+        - "README/Docs describe conventions"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Unity project bootstrap + folder conventions"
+
+  - title: "chore: Add Unity .gitignore and verify clean status"
+    raw_title: "Add Unity .gitignore and verify clean status"
+    type: "chore"
+    area: "Build"
+    estimate: "XS"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:xs", "risk:low", "sys:build-ci", "p1"]
+    parent_epic: "EPIC: M0 — Unity project bootstrap + folder conventions"
+    body:
+      chore_type: "maintenance (deps/config tidy-up)"
+      what: "Add Unity .gitignore and verify clean status"
+      why: "Stops noisy Unity artifacts from polluting the repo."
+      definition_of_done:
+        - "Unity temp/generated files are ignored"
+        - "git status is clean after opening project"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Unity project bootstrap + folder conventions"
+
+  - title: "chore: Add README with setup/build steps and conventions"
+    raw_title: "Add README with setup/build steps and conventions"
+    type: "chore"
+    area: "Build"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:s", "risk:low", "sys:build-ci", "p1"]
+    parent_epic: "EPIC: M0 — Unity project bootstrap + folder conventions"
+    body:
+      chore_type: "maintenance (deps/config tidy-up)"
+      what: "Add README with setup/build steps and conventions"
+      why: "Documents the project so it’s easy to resume later."
+      definition_of_done:
+        - "README includes open/run steps"
+        - "Folder conventions captured"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Unity project bootstrap + folder conventions"
+
+  - title: "feat: Commit and verify a fresh clone opens cleanly"
+    raw_title: "Commit and verify a fresh clone opens cleanly"
+    type: "feature"
+    area: "Build"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:feature", "area:build", "est:s", "risk:low", "sys:build-ci", "p1"]
+    parent_epic: "EPIC: M0 — Unity project bootstrap + folder conventions"
+    body:
+      what: "Commit and verify a fresh clone opens cleanly"
+      why: "Ensures reproducibility (future-you will thank you)."
+      definition_of_done:
+        - "Fresh clone opens in Unity without errors"
+        - "Play Mode works"
+        - "Notes recorded in issue or PR"
+      system: "sys:build-ci"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Unity project bootstrap + folder conventions"
+
+  # -------------------------
+  # EPIC: M0 — CI baseline (PR checks + guardrails)
+  # -------------------------
+  - title: "chore: Add GitHub Actions workflow (runs on push/PR)"
+    raw_title: "Add GitHub Actions workflow (runs on push/PR)"
+    type: "chore"
+    area: "Build"
+    estimate: "S"
+    risk: "Med"
+    labels: ["type:chore", "area:build", "est:s", "risk:med", "sys:build-ci", "p0"]
+    parent_epic: "EPIC: M0 — CI baseline (PR checks + guardrails)"
+    body:
+      chore_type: "tooling (scripts, CI, automation)"
+      what: "Add GitHub Actions workflow (runs on push/PR)"
+      why: "Baseline CI prevents silent breakage."
+      definition_of_done:
+        - "Workflow runs on push and PR"
+        - "Clear pass/fail in PR checks"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p0"
+      notes: "Parent Epic: EPIC: M0 — CI baseline (PR checks + guardrails)"
+
+  - title: "chore: Add a fast check (e.g., dotnet format / editorconfig / unit test stub)"
+    raw_title: "Add a fast check (e.g., dotnet format / editorconfig / unit test stub)"
+    type: "chore"
+    area: "Build"
+    estimate: "S"
+    risk: "Med"
+    labels: ["type:chore", "area:build", "est:s", "risk:med", "sys:build-ci", "p0"]
+    parent_epic: "EPIC: M0 — CI baseline (PR checks + guardrails)"
+    body:
+      chore_type: "tooling (scripts, CI, automation)"
+      what: "Add a fast check (format/lint/test stub)"
+      why: "Catches basic problems quickly and keeps the repo tidy."
+      definition_of_done:
+        - "Check runs in CI"
+        - "Fails appropriately on violations"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p0"
+      notes: "Parent Epic: EPIC: M0 — CI baseline (PR checks + guardrails)"
+
+  - title: "chore: Configure caching where useful (optional)"
+    raw_title: "Configure caching where useful (optional)"
+    type: "chore"
+    area: "Build"
+    estimate: "XS"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:xs", "risk:low", "sys:build-ci", "p2"]
+    parent_epic: "EPIC: M0 — CI baseline (PR checks + guardrails)"
+    body:
+      chore_type: "tooling (scripts, CI, automation)"
+      what: "Configure caching where useful (optional)"
+      why: "Reduces CI runtime (nice-to-have)."
+      definition_of_done:
+        - "Cache configured safely"
+        - "CI time improves measurably OR change reverted"
+      system: "sys:build-ci"
+      priority: "p2"
+      notes: "Parent Epic: EPIC: M0 — CI baseline (PR checks + guardrails)"
+
+  - title: "chore: Add status badge to README (optional)"
+    raw_title: "Add status badge to README (optional)"
+    type: "chore"
+    area: "Build"
+    estimate: "XS"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:xs", "risk:low", "sys:build-ci", "p2"]
+    parent_epic: "EPIC: M0 — CI baseline (PR checks + guardrails)"
+    body:
+      chore_type: "maintenance (deps/config tidy-up)"
+      what: "Add status badge to README (optional)"
+      why: "Quick visual indicator of CI health."
+      definition_of_done:
+        - "Badge shows CI status correctly"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p2"
+      notes: "Parent Epic: EPIC: M0 — CI baseline (PR checks + guardrails)"
+
+  - title: "chore: Document CI expectations (what must pass to merge)"
+    raw_title: "Document CI expectations (what must pass to merge)"
+    type: "chore"
+    area: "Build"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:s", "risk:low", "sys:build-ci", "p1"]
+    parent_epic: "EPIC: M0 — CI baseline (PR checks + guardrails)"
+    body:
+      chore_type: "maintenance (deps/config tidy-up)"
+      what: "Document CI expectations (what must pass to merge)"
+      why: "Makes the rules explicit and reduces future confusion."
+      definition_of_done:
+        - "Doc exists (README or Docs/CI.md)"
+        - "Covers local vs CI expectations"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — CI baseline (PR checks + guardrails)"
+
+  - title: "chore: (Optional) Enable branch protection requiring CI pass"
+    raw_title: "(Optional) Enable branch protection requiring CI pass"
+    type: "chore"
+    area: "Build"
+    estimate: "XS"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:xs", "risk:low", "sys:build-ci", "p2"]
+    parent_epic: "EPIC: M0 — CI baseline (PR checks + guardrails)"
+    body:
+      chore_type: "tooling (scripts, CI, automation)"
+      what: "(Optional) Enable branch protection requiring CI pass"
+      why: "Prevents merges when CI is failing."
+      definition_of_done:
+        - "Main branch requires CI checks (if desired)"
+        - "Verified with a test PR"
+      system: "sys:build-ci"
+      priority: "p2"
+      notes: "Parent Epic: EPIC: M0 — CI baseline (PR checks + guardrails)"
+
+  # -------------------------
+  # EPIC: M0 — Core architecture skeleton (loop boundaries + services)
+  # -------------------------
+  - title: "feat: Create Runtime Bootstrap/Entry point (GameRoot)"
+    raw_title: "Create Runtime Bootstrap/Entry point (GameRoot)"
+    type: "feature"
+    area: "Sim"
+    estimate: "M"
+    risk: "Med"
+    labels: ["type:feature", "area:sim", "est:m", "risk:med", "sys:simulation", "p0"]
+    parent_epic: "EPIC: M0 — Core architecture skeleton (loop boundaries + services)"
+    body:
+      what: "Create Runtime Bootstrap/Entry point (GameRoot)"
+      why: "Provides a single reliable composition root for the runtime."
+      definition_of_done:
+        - "GameRoot exists and runs in Play Mode"
+        - "No Console errors"
+        - "Committed + pushed"
+      system: "sys:simulation"
+      priority: "p0"
+      notes: "Parent Epic: EPIC: M0 — Core architecture skeleton (loop boundaries + services)"
+
+  - title: "feat: Implement minimal state machine (Boot/Run/Pause/Exit)"
+    raw_title: "Implement minimal state machine (Boot/Run/Pause/Exit)"
+    type: "feature"
+    area: "Sim"
+    estimate: "M"
+    risk: "Med"
+    labels: ["type:feature", "area:sim", "est:m", "risk:med", "sys:simulation", "p0"]
+    parent_epic: "EPIC: M0 — Core architecture skeleton (loop boundaries + services)"
+    body:
+      what: "Implement minimal state machine (Boot/Run/Pause/Exit)"
+      why: "Defines clean game loop boundaries early."
+      definition_of_done:
+        - "States exist and transition deterministically"
+        - "Transitions logged"
+        - "Committed + pushed"
+      system: "sys:simulation"
+      priority: "p0"
+      notes: "Parent Epic: EPIC: M0 — Core architecture skeleton (loop boundaries + services)"
+
+  - title: "feat: Define service interfaces (IRng, ITickSim, ISave, IWorldGen)"
+    raw_title: "Define service interfaces (IRng, ITickSim, ISave, IWorldGen)"
+    type: "feature"
+    area: "Sim"
+    estimate: "M"
+    risk: "Med"
+    labels: ["type:feature", "area:sim", "est:m", "risk:med", "sys:simulation", "p0"]
+    parent_epic: "EPIC: M0 — Core architecture skeleton (loop boundaries + services)"
+    body:
+      what: "Define service interfaces (IRng, ITickSim, ISave, IWorldGen)"
+      why: "Creates stable seams between Gen/Sim/Save."
+      definition_of_done:
+        - "Interfaces exist with minimal methods"
+        - "Naming is consistent"
+        - "Committed + pushed"
+      system: "sys:simulation"
+      priority: "p0"
+      notes: "Parent Epic: EPIC: M0 — Core architecture skeleton (loop boundaries + services)"
+
+  - title: "feat: Wire services together with simple composition root"
+    raw_title: "Wire services together with simple composition root"
+    type: "feature"
+    area: "Sim"
+    estimate: "M"
+    risk: "Med"
+    labels: ["type:feature", "area:sim", "est:m", "risk:med", "sys:simulation", "p1"]
+    parent_epic: "EPIC: M0 — Core architecture skeleton (loop boundaries + services)"
+    body:
+      what: "Wire services together with simple composition root"
+      why: "Lets you run the loop with stub services early."
+      definition_of_done:
+        - "Services are constructed in one place"
+        - "No circular dependencies"
+        - "Committed + pushed"
+      system: "sys:simulation"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Core architecture skeleton (loop boundaries + services)"
+
+  - title: "feat: Add a dev-only tick trigger (button/hotkey) for smoke testing"
+    raw_title: "Add a dev-only tick trigger (button/hotkey) for smoke testing"
+    type: "feature"
+    area: "UI"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:feature", "area:ui", "est:s", "risk:low", "sys:ui", "p1"]
+    parent_epic: "EPIC: M0 — Core architecture skeleton (loop boundaries + services)"
+    body:
+      what: "Add a dev-only tick trigger (button/hotkey) for smoke testing"
+      why: "Allows fast validation of the loop without building full UI."
+      definition_of_done:
+        - "Tick can be triggered in Play Mode"
+        - "Effect is visible via logs/HUD"
+        - "Committed + pushed"
+      system: "sys:ui"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Core architecture skeleton (loop boundaries + services)"
+
+  - title: "chore: Write Docs/Architecture.md (1 page)"
+    raw_title: "Write Docs/Architecture.md (1 page)"
+    type: "chore"
+    area: "Build"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:chore", "area:build", "est:s", "risk:low", "sys:build-ci", "p1"]
+    parent_epic: "EPIC: M0 — Core architecture skeleton (loop boundaries + services)"
+    body:
+      chore_type: "maintenance (deps/config tidy-up)"
+      what: "Write Docs/Architecture.md (1 page)"
+      why: "Captures intent and prevents architecture drift."
+      definition_of_done:
+        - "Doc explains loop and service boundaries"
+        - "Includes simple diagram or bullet architecture"
+        - "Committed + pushed"
+      system: "sys:build-ci"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Core architecture skeleton (loop boundaries + services)"
+
+  # -------------------------
+  # EPIC: M0 — Data model foundations (IDs + versioning plan)
+  # -------------------------
+  - title: "feat: Define core state models (Run/World/Player)"
+    raw_title: "Define core state models (Run/World/Player)"
+    type: "feature"
+    area: "Save"
+    estimate: "M"
+    risk: "Med"
+    labels: ["type:feature", "area:save", "est:m", "risk:med", "sys:save-load", "p0"]
+    parent_epic: "EPIC: M0 — Data model foundations (IDs + versioning plan)"
+    body:
+      what: "Define core state models (Run/World/Player)"
+      why: "Provides stable structures for Save/Load and simulation state."
+      definition_of_done:
+        - "Models compile and are minimal"
+        - "No circular references"
+        - "Committed + pushed"
+      system: "sys:save-load"
+      priority: "p0"
+      notes: "Parent Epic: EPIC: M0 — Data model foundations (IDs + versioning plan)"
+
+  - title: "feat: Choose and document ID strategy"
+    raw_title: "Choose and document ID strategy"
+    type: "feature"
+    area: "Save"
+    estimate: "S"
+    risk: "Med"
+    labels: ["type:feature", "area:save", "est:s", "risk:med", "sys:save-load", "p0"]
+    parent_epic: "EPIC: M0 — Data model foundations (IDs + versioning plan)"
+    body:
+      what: "Choose and document ID strategy"
+      why: "Prevents data breakage and makes content references stable."
+      definition_of_done:
+        - "ID strategy chosen (string IDs/GUIDs/etc.)"
+        - "Documented in Docs"
+        - "Committed + pushed"
+      system: "sys:save-load"
+      priority: "p0"
+      notes: "Parent Epic: EPIC: M0 — Data model foundations (IDs + versioning plan)"
+
+  - title: "feat: Add schema versioning field + constants"
+    raw_title: "Add schema versioning field + constants"
+    type: "feature"
+    area: "Save"
+    estimate: "S"
+    risk: "Med"
+    labels: ["type:feature", "area:save", "est:s", "risk:med", "sys:save-load", "p0"]
+    parent_epic: "EPIC: M0 — Data model foundations (IDs + versioning plan)"
+    body:
+      what: "Add schema versioning field + constants"
+      why: "Allows save migration later without pain."
+      definition_of_done:
+        - "Version field exists in root save model"
+        - "Constants defined"
+        - "Committed + pushed"
+      system: "sys:save-load"
+      priority: "p0"
+      notes: "Parent Epic: EPIC: M0 — Data model foundations (IDs + versioning plan)"
+
+  - title: "feat: Create migration hook interface and a v0 stub"
+    raw_title: "Create migration hook interface and a v0 stub"
+    type: "feature"
+    area: "Save"
+    estimate: "M"
+    risk: "Med"
+    labels: ["type:feature", "area:save", "est:m", "risk:med", "sys:save-load", "p1"]
+    parent_epic: "EPIC: M0 — Data model foundations (IDs + versioning plan)"
+    body:
+      what: "Create migration hook interface and a v0 stub"
+      why: "Makes future migrations intentional and testable."
+      definition_of_done:
+        - "Migration interface exists"
+        - "v0 stub in place (no-op)"
+        - "Committed + pushed"
+      system: "sys:save-load"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Data model foundations (IDs + versioning plan)"
+
+  - title: "feat: Decide config format (SO vs JSON) and document tradeoffs"
+    raw_title: "Decide config format (SO vs JSON) and document tradeoffs"
+    type: "feature"
+    area: "Save"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:feature", "area:save", "est:s", "risk:low", "sys:save-load", "p1"]
+    parent_epic: "EPIC: M0 — Data model foundations (IDs + versioning plan)"
+    body:
+      what: "Decide config format (SO vs JSON) and document tradeoffs"
+      why: "Locks in a content pipeline direction early."
+      definition_of_done:
+        - "Decision recorded"
+        - "Minimal example created"
+        - "Committed + pushed"
+      system: "sys:save-load"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Data model foundations (IDs + versioning plan)"
+
+  - title: "feat: Add a tiny sample config asset/file to validate workflow"
+    raw_title: "Add a tiny sample config asset/file to validate workflow"
+    type: "feature"
+    area: "Save"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:feature", "area:save", "est:s", "risk:low", "sys:save-load", "p1"]
+    parent_epic: "EPIC: M0 — Data model foundations (IDs + versioning plan)"
+    body:
+      what: "Add a tiny sample config asset/file to validate workflow"
+      why: "Proves the chosen data pipeline works in practice."
+      definition_of_done:
+        - "Sample config exists"
+        - "Loaded/inspected successfully"
+        - "Committed + pushed"
+      system: "sys:save-load"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Data model foundations (IDs + versioning plan)"
+
+  # -------------------------
+  # EPIC: M0 — Debug + telemetry basics (dev UI + logging)
+  # -------------------------
+  - title: "feat: Create DevHUD with seed/tick/resource placeholders"
+    raw_title: "Create DevHUD with seed/tick/resource placeholders"
+    type: "feature"
+    area: "UI"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:feature", "area:ui", "est:s", "risk:low", "sys:ui", "p1"]
+    parent_epic: "EPIC: M0 — Debug + telemetry basics (dev UI + logging)"
+    body:
+      what: "Create DevHUD with seed/tick/resource placeholders"
+      why: "Makes runtime state visible without living in the Inspector."
+      definition_of_done:
+        - "HUD renders in Play Mode"
+        - "Shows placeholder values"
+        - "Committed + pushed"
+      system: "sys:ui"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Debug + telemetry basics (dev UI + logging)"
+
+  - title: "feat: Add toggle (keybind + setting)"
+    raw_title: "Add toggle (keybind + setting)"
+    type: "feature"
+    area: "UI"
+    estimate: "XS"
+    risk: "Low"
+    labels: ["type:feature", "area:ui", "est:xs", "risk:low", "sys:ui", "p1"]
+    parent_epic: "EPIC: M0 — Debug + telemetry basics (dev UI + logging)"
+    body:
+      what: "Add toggle (keybind + setting)"
+      why: "Lets you enable/disable dev tools quickly."
+      definition_of_done:
+        - "Toggle works in Play Mode"
+        - "Default state sensible"
+        - "Committed + pushed"
+      system: "sys:ui"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Debug + telemetry basics (dev UI + logging)"
+
+  - title: "feat: Add logging helper (category/tag formatting)"
+    raw_title: "Add logging helper (category/tag formatting)"
+    type: "feature"
+    area: "UI"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:feature", "area:ui", "est:s", "risk:low", "sys:ui", "p1"]
+    parent_epic: "EPIC: M0 — Debug + telemetry basics (dev UI + logging)"
+    body:
+      what: "Add logging helper (category/tag formatting)"
+      why: "Keeps logs readable as the project grows."
+      definition_of_done:
+        - "Helper exists and is used by at least one component"
+        - "Logs have consistent prefixes"
+        - "Committed + pushed"
+      system: "sys:ui"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Debug + telemetry basics (dev UI + logging)"
+
+  - title: "feat: Add state snapshot dump command"
+    raw_title: "Add state snapshot dump command"
+    type: "feature"
+    area: "UI"
+    estimate: "S"
+    risk: "Low"
+    labels: ["type:feature", "area:ui", "est:s", "risk:low", "sys:ui", "p1"]
+    parent_epic: "EPIC: M0 — Debug + telemetry basics (dev UI + logging)"
+    body:
+      what: "Add state snapshot dump command"
+      why: "Allows quick debugging and reproducible bug reports."
+      definition_of_done:
+        - "Command triggers snapshot"
+        - "Snapshot prints core state"
+        - "Committed + pushed"
+      system: "sys:ui"
+      priority: "p1"
+      notes: "Parent Epic: EPIC: M0 — Debug + telemetry basics (dev UI + logging)"
+
+  - title: "chore: Document usage in Docs/Debug.md"
+    raw_title: "Document usage in Docs/Debug.md"
+    type: "chore"
+    area: "UI"
+    estimate: "XS"
+    risk: "Low"
+    labels: ["type:chore", "area:ui", "est:xs", "risk:low", "sys:ui", "p2"]
+    parent_epic: "EPIC: M0 — Debug + telemetry basics (dev UI + logging)"
+    body:
+      chore_type: "maintenance (deps/config tidy-up)"
+      what: "Document usage in Docs/Debug.md"
+      why: "Captures how to use dev tools so you don’t forget."
+      definition_of_done:
+        - "Doc explains HUD/toggles/snapshot"
+        - "Committed + pushed"
+      system: "sys:ui"
+      priority: "p2"
+      notes: "Parent Epic: EPIC: M0 — Debug + telemetry basics (dev UI + logging)"
