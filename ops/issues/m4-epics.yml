@@ -1,0 +1,207 @@
+milestone_number: 5
+milestone: "M4 – Polish & Portability"
+issues:
+  - title: "EPIC: M4 — UI/UX polish pass (HUD, panels, flow)"
+    labels: ["type:epic", "area:ui", "estimate:L", "risk:M"]
+    area: ui
+    estimate: L
+    risk: M
+    body:
+      goal: "Make the game feel coherent and pleasant: readable HUD, smooth menus, consistent panels, and clear feedback."
+      acceptance_criteria:
+        - "HUD is readable at 720p and on common mobile aspect ratios."
+        - "Menus/panels have consistent layout, spacing, and navigation."
+        - "Key actions provide feedback (toasts, SFX hooks, highlights)."
+        - "No major UI regressions vs M3."
+      in_scope:
+        - "HUD readability & layout improvements."
+        - "Menu/panel consistency pass."
+        - "Input/navigation polish (mouse/keyboard/controller-ready)."
+      out_of_scope:
+        - "Full visual redesign / final art pack."
+        - "Localization."
+      child_issue_checklist:
+        - "Create UI style guide (spacing, fonts, panels) + apply to HUD"
+        - "Improve Upgrade panel UX (sorting, affordability highlighting)"
+        - "Improve Run Summary panel (biome, hazard, KPIs) + shareable seed"
+        - "Add settings menu (audio, speed, accessibility toggles)"
+        - "Add controller-friendly navigation (basic) + focus states"
+        - "Add lightweight animations/transitions (open/close, toasts)"
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**
+
+  - title: "EPIC: M4 — Mobile-friendly constraints (controls, safe areas, scaling)"
+    labels: ["type:epic", "area:mobile", "estimate:L", "risk:H"]
+    area: mobile
+    estimate: L
+    risk: H
+    body:
+      goal: "Prepare the project for mobile without breaking desktop: safe areas, scalable UI, touch-friendly controls, and sensible performance."
+      acceptance_criteria:
+        - "UI respects safe areas (notches) and scales on 16:9, 19.5:9, 20:9."
+        - "Touch controls exist for core interactions (pause, speed, open panels)."
+        - "No hard dependency on mobile to run desktop builds."
+        - "Basic mobile build produces a runnable APK/IPA placeholder (platform allowing)."
+      in_scope:
+        - "Safe area + scaling."
+        - "Touch input layer (minimal)."
+        - "Mobile build settings sanity."
+      out_of_scope:
+        - "Full mobile optimization (battery, thermal) beyond baseline."
+        - "Store compliance and publishing."
+      child_issue_checklist:
+        - "Implement SafeAreaRoot + test common device aspect ratios"
+        - "Add touch input bindings (pause, speed, open/close panels)"
+        - "Replace hover-only UI with tap/press equivalents"
+        - "Mobile build settings baseline (quality, resolution, orientation)"
+        - "Document mobile build steps + known limitations"
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**
+
+  - title: "EPIC: M4 — Performance & stability (profiling, GC, tick scaling)"
+    labels: ["type:epic", "area:performance", "estimate:L", "risk:H"]
+    area: performance
+    estimate: L
+    risk: H
+    body:
+      goal: "Keep the sim smooth: reduce allocations, cap spikes, and ensure tick simulation scales and remains deterministic."
+      acceptance_criteria:
+        - "No major per-frame GC allocations in steady state."
+        - "Tick simulation stable at 1x/2x/4x."
+        - "FPS stays reasonable on modest hardware (baseline target documented)."
+        - "No crashers or save corruption bugs open for release candidate."
+      in_scope:
+        - "Profiler-driven fixes."
+        - "Pooling / allocation reductions."
+        - "Tick loop optimizations."
+      out_of_scope:
+        - "Deep engine-level render rewrites."
+        - "Ultra-low-end device targets."
+      child_issue_checklist:
+        - "Perf baseline capture (desktop) + budget doc"
+        - "Fix top 3 GC alloc hotspots"
+        - "Optimize tick loop (data structures, batching, no LINQ in hot paths)"
+        - "Add optional sim throttle when unfocused / background"
+        - "Add automated smoke test scene for CI (optional)"
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**
+
+  - title: "EPIC: M4 — Game feel (audio, juice, feedback loops)"
+    labels: ["type:epic", "area:content", "estimate:M", "risk:M"]
+    area: content
+    estimate: M
+    risk: M
+    body:
+      goal: "Increase perceived quality with small but powerful touches: SFX hooks, subtle animations, and satisfying feedback."
+      acceptance_criteria:
+        - "Core actions have SFX hooks (upgrade buy, hazard warning, save, escape progress)."
+        - "At least 6 micro-animations/juicy feedback improvements exist."
+        - "Audio can be toggled and volume-adjusted."
+      in_scope:
+        - "SFX hooks and placeholder clips."
+        - "Small animations and UI feedback."
+        - "Haptics hooks (optional, stubbed)."
+      out_of_scope:
+        - "Final soundtrack production."
+        - "Full VFX pass."
+      child_issue_checklist:
+        - "Add SFX event bus + hooks for key actions"
+        - "Add volume sliders + persist settings"
+        - "Add micro-animations: button press, panel open, resource tick pulse"
+        - "Add hazard telegraph feedback (sound + UI pulse)"
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**
+
+  - title: "EPIC: M4 — Accessibility & readability (fonts, contrast, motion)"
+    labels: ["type:epic", "area:ui", "estimate:M", "risk:M"]
+    area: ui
+    estimate: M
+    risk: M
+    body:
+      goal: "Make the game readable and comfortable: scalable fonts, contrast options, and reduced motion."
+      acceptance_criteria:
+        - "Font scale option exists (at least 3 steps)."
+        - "High-contrast mode exists (basic)."
+        - "Reduced motion toggle disables major UI animations."
+        - "Color-only signals have an alternate cue (icon/text)."
+      in_scope:
+        - "Settings + implementation for font/contrast/motion."
+        - "Audit of main HUD/panels."
+      out_of_scope:
+        - "Full screen reader support."
+        - "Localization."
+      child_issue_checklist:
+        - "Add font scale setting + apply to HUD/panels"
+        - "Add high-contrast theme toggle (basic)"
+        - "Add reduced motion toggle + gate animations"
+        - "Replace color-only signals with icons/text (hazards, affordability)"
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**
+
+  - title: "EPIC: M4 — Build & release pipeline (CI builds, versioning, artifacts)"
+    labels: ["type:epic", "area:build-ci", "estimate:M", "risk:M"]
+    area: build-ci
+    estimate: M
+    risk: M
+    body:
+      goal: "Have predictable builds: versioning, changelog notes, and build artifacts produced by CI."
+      acceptance_criteria:
+        - "Version number increments are documented and automated (simple)."
+        - "CI produces build artifacts for desktop (and mobile if feasible)."
+        - "Basic release notes template exists."
+        - "No secrets leaked; builds use safe credentials."
+      in_scope:
+        - "CI workflow additions."
+        - "Versioning scheme + script."
+        - "Artifacts storage (GitHub Actions artifacts)."
+      out_of_scope:
+        - "Steam/Store publishing automation."
+        - "Signing and notarization (beyond placeholders)."
+      child_issue_checklist:
+        - "Add version file + script to bump version"
+        - "Add CI workflow to build desktop player (artifact upload)"
+        - "Optional: add CI workflow stub for Android build (manual trigger)"
+        - "Add release notes template (Docs/ReleaseNotesTemplate.md)"
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**
+
+  - title: "EPIC: M4 — QA + bug bash (fix list, stability, regression)"
+    labels: ["type:epic", "area:qa", "estimate:M", "risk:M"]
+    area: qa
+    estimate: M
+    risk: M
+    body:
+      goal: "Stabilize for a playable demo: clear bug bash list, regression checks, and 'known issues' doc."
+      acceptance_criteria:
+        - "Bug bash checklist exists and is followed."
+        - "Top priority bugs fixed (crashers, save/load, progression blockers)."
+        - "KnownIssues.md maintained."
+        - "At least one end-to-end demo playthrough documented."
+      in_scope:
+        - "Bug bash process + triage labels."
+        - "Fixing high-impact issues."
+        - "Regression checklist."
+      out_of_scope:
+        - "Full automated testing suite."
+        - "Large gameplay feature additions."
+      child_issue_checklist:
+        - "Create BugBash checklist doc + run it"
+        - "Fix top 10 bugs found during bug bash"
+        - "Add regression checklist (smoke test steps)"
+        - "Write Docs/KnownIssues.md + keep updated"
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**

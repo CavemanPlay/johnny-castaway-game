@@ -1,0 +1,596 @@
+milestone_number: 5
+milestone: "M4 – Polish & Portability"
+issues:
+  # UI/UX polish
+  - type: chore
+    title: "chore: Create UI style guide (spacing, fonts, panels) + apply to HUD"
+    raw_title: "Create UI style guide (spacing, fonts, panels) + apply to HUD"
+    parent_epic: "EPIC: M4 — UI/UX polish pass (HUD, panels, flow)"
+    labels: ["type:chore", "area:ui", "sys:ui", "estimate:S", "risk:L"]
+    area: ui
+    estimate: S
+    risk: L
+    body:
+      chore_type: "project hygiene / content authoring"
+      what: "Create a small UI style guide and update HUD to match."
+      why: "Consistency is polish."
+      definition_of_done:
+        - "Docs/UIStyle.md exists"
+        - "HUD updated to match spacing/typography"
+        - "No layout regressions"
+      system: ui
+      priority: "P2"
+
+  - type: feature
+    title: "feat: Improve Upgrade panel UX (sorting, affordability highlighting)"
+    raw_title: "Improve Upgrade panel UX (sorting, affordability highlighting)"
+    parent_epic: "EPIC: M4 — UI/UX polish pass (HUD, panels, flow)"
+    labels: ["type:feature", "area:ui", "sys:ui", "estimate:M", "risk:M"]
+    area: ui
+    estimate: M
+    risk: M
+    body:
+      what: "Improve upgrade list ordering and highlight affordable upgrades."
+      why: "Reduces friction and improves clarity."
+      definition_of_done:
+        - "Sort options exist (recommended/price)"
+        - "Affordable highlighting implemented"
+        - "Controller/touch friendly"
+      system: ui
+      priority: "P1"
+
+  - type: feature
+    title: "feat: Improve Run Summary panel (biome, hazard, KPIs) + shareable seed"
+    raw_title: "Improve Run Summary panel (biome, hazard, KPIs) + shareable seed"
+    parent_epic: "EPIC: M4 — UI/UX polish pass (HUD, panels, flow)"
+    labels: ["type:feature", "area:ui", "sys:ui", "estimate:M", "risk:M"]
+    area: ui
+    estimate: M
+    risk: M
+    body:
+      what: "Expand run summary with key stats and a copyable seed string."
+      why: "Players love sharing seeds and stats; helps debugging."
+      definition_of_done:
+        - "Summary includes biome/hazard KPIs"
+        - "Seed copy button exists"
+        - "No null/missing data"
+      system: ui
+      priority: "P2"
+
+  - type: feature
+    title: "feat: Add settings menu (audio, speed, accessibility toggles)"
+    raw_title: "Add settings menu (audio, speed, accessibility toggles)"
+    parent_epic: "EPIC: M4 — UI/UX polish pass (HUD, panels, flow)"
+    labels: ["type:feature", "area:ui", "sys:ui", "estimate:M", "risk:M"]
+    area: ui
+    estimate: M
+    risk: M
+    body:
+      what: "Add a settings menu and persist options."
+      why: "Basic quality bar + supports accessibility."
+      definition_of_done:
+        - "Menu reachable from pause/main"
+        - "Settings persist across sessions"
+        - "Defaults sane"
+      system: ui
+      priority: "P1"
+
+  - type: chore
+    title: "chore: Add controller-friendly navigation (basic) + focus states"
+    raw_title: "Add controller-friendly navigation (basic) + focus states"
+    parent_epic: "EPIC: M4 — UI/UX polish pass (HUD, panels, flow)"
+    labels: ["type:chore", "area:ui", "sys:input", "estimate:M", "risk:M"]
+    area: ui
+    estimate: M
+    risk: M
+    body:
+      chore_type: "project hygiene / content authoring"
+      what: "Add focus states and basic controller navigation through menus."
+      why: "Portability + better UX."
+      definition_of_done:
+        - "Focus ring/visual exists"
+        - "Navigate settings/pause with controller"
+        - "No mouse-only dead ends"
+      system: input
+      priority: "P2"
+
+  - type: feature
+    title: "feat: Add lightweight animations/transitions (open/close, toasts)"
+    raw_title: "Add lightweight animations/transitions (open/close, toasts)"
+    parent_epic: "EPIC: M4 — UI/UX polish pass (HUD, panels, flow)"
+    labels: ["type:feature", "area:ui", "sys:ui", "estimate:S", "risk:L"]
+    area: ui
+    estimate: S
+    risk: L
+    body:
+      what: "Add subtle transitions to improve feel."
+      why: "Makes UI feel responsive and modern."
+      definition_of_done:
+        - "Panel open/close animation"
+        - "Toast animation"
+        - "Can be disabled by reduced motion"
+      system: ui
+      priority: "P3"
+
+  # Mobile constraints
+  - type: feature
+    title: "feat: Implement SafeAreaRoot + test common device aspect ratios"
+    raw_title: "Implement SafeAreaRoot + test common device aspect ratios"
+    parent_epic: "EPIC: M4 — Mobile-friendly constraints (controls, safe areas, scaling)"
+    labels: ["type:feature", "area:mobile", "sys:ui", "estimate:M", "risk:M"]
+    area: mobile
+    estimate: M
+    risk: M
+    body:
+      what: "Add safe area handling and validate layouts across aspect ratios."
+      why: "Notches and extreme aspect ratios can break UI."
+      definition_of_done:
+        - "SafeAreaRoot in UI"
+        - "Tested on 16:9, 19.5:9, 20:9"
+        - "No clipped critical UI"
+      system: ui
+      priority: "P1"
+
+  - type: feature
+    title: "feat: Add touch input bindings (pause, speed, open/close panels)"
+    raw_title: "Add touch input bindings (pause, speed, open/close panels)"
+    parent_epic: "EPIC: M4 — Mobile-friendly constraints (controls, safe areas, scaling)"
+    labels: ["type:feature", "area:mobile", "sys:input", "estimate:M", "risk:H"]
+    area: mobile
+    estimate: M
+    risk: H
+    body:
+      what: "Implement minimal touch controls for core interactions."
+      why: "Mobile viability."
+      definition_of_done:
+        - "Touch buttons or gestures implemented"
+        - "No conflicts with desktop input"
+        - "Usable on phone screen"
+      system: input
+      priority: "P1"
+
+  - type: bug
+    title: "bug: Replace hover-only UI with tap/press equivalents"
+    raw_title: "Replace hover-only UI with tap/press equivalents"
+    parent_epic: "EPIC: M4 — Mobile-friendly constraints (controls, safe areas, scaling)"
+    labels: ["type:bug", "area:mobile", "sys:ui", "estimate:S", "risk:M"]
+    area: mobile
+    estimate: S
+    risk: M
+    body:
+      what: "Audit UI for hover-only behavior and ensure taps work."
+      why: "Hover doesn't exist on touch."
+      definition_of_done:
+        - "Tooltips accessible via tap/press"
+        - "No hover dependency for critical actions"
+        - "No regressions on desktop"
+      system: ui
+      priority: "P1"
+
+  - type: config
+    title: "config: Mobile build settings baseline (quality, resolution, orientation)"
+    raw_title: "Mobile build settings baseline (quality, resolution, orientation)"
+    parent_epic: "EPIC: M4 — Mobile-friendly constraints (controls, safe areas, scaling)"
+    labels: ["type:config", "area:mobile", "sys:build", "estimate:S", "risk:M"]
+    area: mobile
+    estimate: S
+    risk: M
+    body:
+      what: "Set baseline mobile build settings and document them."
+      why: "Predictable builds and performance."
+      definition_of_done:
+        - "Settings applied"
+        - "Documented in docs"
+        - "Build runs without manual hacks"
+      system: build
+      priority: "P2"
+
+  - type: chore
+    title: "chore: Document mobile build steps + known limitations"
+    raw_title: "Document mobile build steps + known limitations"
+    parent_epic: "EPIC: M4 — Mobile-friendly constraints (controls, safe areas, scaling)"
+    labels: ["type:chore", "area:docs", "sys:docs", "estimate:S", "risk:L"]
+    area: docs
+    estimate: S
+    risk: L
+    body:
+      chore_type: "project hygiene / content authoring"
+      what: "Write Docs/Mobile.md with steps and caveats."
+      why: "Future you will thank you."
+      definition_of_done:
+        - "Doc exists"
+        - "Includes steps + troubleshooting"
+        - "Mentions known limitations"
+      system: docs
+      priority: "P2"
+
+  # Performance & stability
+  - type: chore
+    title: "chore: Perf baseline capture (desktop) + budget doc"
+    raw_title: "Perf baseline capture (desktop) + budget doc"
+    parent_epic: "EPIC: M4 — Performance & stability (profiling, GC, tick scaling)"
+    labels: ["type:chore", "area:performance", "sys:performance", "estimate:S", "risk:M"]
+    area: performance
+    estimate: S
+    risk: M
+    body:
+      chore_type: "project hygiene / content authoring"
+      what: "Capture baseline perf metrics and define budgets."
+      why: "You can’t optimize what you don’t measure."
+      definition_of_done:
+        - "Docs/PerfBudget.md exists"
+        - "Baseline numbers recorded"
+        - "Targets defined"
+      system: performance
+      priority: "P1"
+
+  - type: bug
+    title: "bug: Fix top 3 GC alloc hotspots"
+    raw_title: "Fix top 3 GC alloc hotspots"
+    parent_epic: "EPIC: M4 — Performance & stability (profiling, GC, tick scaling)"
+    labels: ["type:bug", "area:performance", "sys:performance", "estimate:M", "risk:H"]
+    area: performance
+    estimate: M
+    risk: H
+    body:
+      what: "Remove/avoid the biggest steady-state allocations."
+      why: "GC spikes feel awful and kill mobile performance."
+      definition_of_done:
+        - "Top 3 hotspots resolved or mitigated"
+        - "Profiler evidence captured"
+        - "No behavior regressions"
+      system: performance
+      priority: "P1"
+
+  - type: tech-debt
+    title: "tech-debt: Optimize tick loop (data structures, batching, no LINQ in hot paths)"
+    raw_title: "Optimize tick loop (data structures, batching, no LINQ in hot paths)"
+    parent_epic: "EPIC: M4 — Performance & stability (profiling, GC, tick scaling)"
+    labels: ["type:tech-debt", "area:performance", "sys:sim", "estimate:M", "risk:M"]
+    area: performance
+    estimate: M
+    risk: M
+    body:
+      what: "Refactor tick/sim hot paths for fewer allocations and better cache behavior."
+      why: "Tick scaling is a core differentiator."
+      definition_of_done:
+        - "No LINQ allocations in hot loop"
+        - "Batch updates where possible"
+        - "Determinism preserved"
+      system: sim
+      priority: "P2"
+
+  - type: feature
+    title: "feat: Add optional sim throttle when unfocused / background"
+    raw_title: "Add optional sim throttle when unfocused / background"
+    parent_epic: "EPIC: M4 — Performance & stability (profiling, GC, tick scaling)"
+    labels: ["type:feature", "area:performance", "sys:sim", "estimate:S", "risk:M"]
+    area: performance
+    estimate: S
+    risk: M
+    body:
+      what: "Throttle sim rate when app is unfocused to reduce CPU usage."
+      why: "Better laptop battery and mobile thermal behavior."
+      definition_of_done:
+        - "Throttle toggle exists"
+        - "No save corruption"
+        - "Determinism unaffected"
+      system: sim
+      priority: "P3"
+
+  - type: chore
+    title: "chore: Add automated smoke test scene for CI (optional)"
+    raw_title: "Add automated smoke test scene for CI (optional)"
+    parent_epic: "EPIC: M4 — Performance & stability (profiling, GC, tick scaling)"
+    labels: ["type:chore", "area:build-ci", "sys:testing", "estimate:M", "risk:M"]
+    area: build-ci
+    estimate: M
+    risk: M
+    body:
+      chore_type: "tooling (scripts, CI, automation)"
+      what: "Add a lightweight smoke test scene or headless sim step for CI."
+      why: "Catches obvious breakages early."
+      definition_of_done:
+        - "Can run in CI"
+        - "Fails with clear logs"
+        - "Does not take forever"
+      system: testing
+      priority: "P3"
+
+  # Game feel
+  - type: feature
+    title: "feat: Add SFX event bus + hooks for key actions"
+    raw_title: "Add SFX event bus + hooks for key actions"
+    parent_epic: "EPIC: M4 — Game feel (audio, juice, feedback loops)"
+    labels: ["type:feature", "area:content", "sys:audio", "estimate:M", "risk:M"]
+    area: content
+    estimate: M
+    risk: M
+    body:
+      what: "Centralize SFX triggers and hook into core events."
+      why: "Easy to expand and keep consistent."
+      definition_of_done:
+        - "SFX bus exists"
+        - "Hooks for upgrade/hazard/save/escape"
+        - "No spam or overlaps"
+      system: audio
+      priority: "P2"
+
+  - type: feature
+    title: "feat: Add volume sliders + persist settings"
+    raw_title: "Add volume sliders + persist settings"
+    parent_epic: "EPIC: M4 — Game feel (audio, juice, feedback loops)"
+    labels: ["type:feature", "area:ui", "sys:audio", "estimate:S", "risk:L"]
+    area: ui
+    estimate: S
+    risk: L
+    body:
+      what: "Add volume controls and persist them."
+      why: "Basic user control and comfort."
+      definition_of_done:
+        - "Master/SFX sliders"
+        - "Persisted across sessions"
+        - "Defaults reasonable"
+      system: audio
+      priority: "P1"
+
+  - type: feature
+    title: "feat: Add micro-animations: button press, panel open, resource tick pulse"
+    raw_title: "Add micro-animations: button press, panel open, resource tick pulse"
+    parent_epic: "EPIC: M4 — Game feel (audio, juice, feedback loops)"
+    labels: ["type:feature", "area:ui", "sys:ui", "estimate:M", "risk:L"]
+    area: ui
+    estimate: M
+    risk: L
+    body:
+      what: "Add small animations that improve feel without heavy VFX."
+      why: "Perceived quality boost."
+      definition_of_done:
+        - "3+ micro-animations added"
+        - "No perf regressions"
+        - "Respects reduced motion toggle"
+      system: ui
+      priority: "P3"
+
+  - type: feature
+    title: "feat: Add hazard telegraph feedback (sound + UI pulse)"
+    raw_title: "Add hazard telegraph feedback (sound + UI pulse)"
+    parent_epic: "EPIC: M4 — Game feel (audio, juice, feedback loops)"
+    labels: ["type:feature", "area:ui", "sys:hazards", "estimate:S", "risk:M"]
+    area: ui
+    estimate: S
+    risk: M
+    body:
+      what: "Improve hazard warning feedback with sound and UI pulse."
+      why: "Fairness and clarity."
+      definition_of_done:
+        - "Telegraph triggers exist"
+        - "Not too noisy"
+        - "Works with audio off"
+      system: hazards
+      priority: "P2"
+
+  # Accessibility
+  - type: feature
+    title: "feat: Add font scale setting + apply to HUD/panels"
+    raw_title: "Add font scale setting + apply to HUD/panels"
+    parent_epic: "EPIC: M4 — Accessibility & readability (fonts, contrast, motion)"
+    labels: ["type:feature", "area:ui", "sys:ui", "estimate:S", "risk:M"]
+    area: ui
+    estimate: S
+    risk: M
+    body:
+      what: "Add font scale steps and apply across key UI."
+      why: "Readability for more players."
+      definition_of_done:
+        - "3-step font scale"
+        - "Applied to HUD/panels"
+        - "No overflow/clipping"
+      system: ui
+      priority: "P1"
+
+  - type: feature
+    title: "feat: Add high-contrast theme toggle (basic)"
+    raw_title: "Add high-contrast theme toggle (basic)"
+    parent_epic: "EPIC: M4 — Accessibility & readability (fonts, contrast, motion)"
+    labels: ["type:feature", "area:ui", "sys:ui", "estimate:S", "risk:M"]
+    area: ui
+    estimate: S
+    risk: M
+    body:
+      what: "Add a basic high-contrast mode."
+      why: "Better visibility and accessibility."
+      definition_of_done:
+        - "Toggle exists"
+        - "Applies to main HUD/panels"
+        - "No unreadable states"
+      system: ui
+      priority: "P2"
+
+  - type: feature
+    title: "feat: Add reduced motion toggle + gate animations"
+    raw_title: "Add reduced motion toggle + gate animations"
+    parent_epic: "EPIC: M4 — Accessibility & readability (fonts, contrast, motion)"
+    labels: ["type:feature", "area:ui", "sys:ui", "estimate:S", "risk:L"]
+    area: ui
+    estimate: S
+    risk: L
+    body:
+      what: "Allow disabling major UI animations."
+      why: "Comfort for motion-sensitive players."
+      definition_of_done:
+        - "Toggle exists"
+        - "Major animations gated"
+        - "No broken UI"
+      system: ui
+      priority: "P2"
+
+  - type: bug
+    title: "bug: Replace color-only signals with icons/text (hazards, affordability)"
+    raw_title: "Replace color-only signals with icons/text (hazards, affordability)"
+    parent_epic: "EPIC: M4 — Accessibility & readability (fonts, contrast, motion)"
+    labels: ["type:bug", "area:ui", "sys:ui", "estimate:S", "risk:M"]
+    area: ui
+    estimate: S
+    risk: M
+    body:
+      what: "Audit UI and add non-color cues where needed."
+      why: "Color blindness and clarity."
+      definition_of_done:
+        - "Hazard cues have icons/text"
+        - "Affordability has icon/text"
+        - "No UI clutter"
+      system: ui
+      priority: "P2"
+
+  # Build & release pipeline
+  - type: feature
+    title: "feat: Add version file + script to bump version"
+    raw_title: "Add version file + script to bump version"
+    parent_epic: "EPIC: M4 — Build & release pipeline (CI builds, versioning, artifacts)"
+    labels: ["type:feature", "area:build-ci", "sys:build-ci", "estimate:S", "risk:L"]
+    area: build-ci
+    estimate: S
+    risk: L
+    body:
+      what: "Introduce a simple versioning scheme and bump script."
+      why: "Releases need a consistent version."
+      definition_of_done:
+        - "Version file exists"
+        - "Bump script works"
+        - "Docs updated"
+      system: build-ci
+      priority: "P2"
+
+  - type: chore
+    title: "chore: Add CI workflow to build desktop player (artifact upload)"
+    raw_title: "Add CI workflow to build desktop player (artifact upload)"
+    parent_epic: "EPIC: M4 — Build & release pipeline (CI builds, versioning, artifacts)"
+    labels: ["type:chore", "area:build-ci", "sys:build-ci", "estimate:M", "risk:M"]
+    area: build-ci
+    estimate: M
+    risk: M
+    body:
+      chore_type: "tooling (scripts, CI, automation)"
+      what: "Add CI job to produce a desktop build artifact."
+      why: "Repeatable builds and demos."
+      definition_of_done:
+        - "Workflow runs on dispatch"
+        - "Artifact uploaded"
+        - "Build is runnable"
+      system: build-ci
+      priority: "P3"
+
+  - type: chore
+    title: "chore: Optional: add CI workflow stub for Android build (manual trigger)"
+    raw_title: "Optional: add CI workflow stub for Android build (manual trigger)"
+    parent_epic: "EPIC: M4 — Build & release pipeline (CI builds, versioning, artifacts)"
+    labels: ["type:chore", "area:build-ci", "sys:build-ci", "estimate:M", "risk:H"]
+    area: build-ci
+    estimate: M
+    risk: H
+    body:
+      chore_type: "tooling (scripts, CI, automation)"
+      what: "Create a stub workflow for Android builds."
+      why: "Future portability."
+      definition_of_done:
+        - "Workflow exists"
+        - "Runs with clear prerequisites"
+        - "No secrets in repo"
+      system: build-ci
+      priority: "P3"
+
+  - type: chore
+    title: "chore: Add release notes template (Docs/ReleaseNotesTemplate.md)"
+    raw_title: "Add release notes template (Docs/ReleaseNotesTemplate.md)"
+    parent_epic: "EPIC: M4 — Build & release pipeline (CI builds, versioning, artifacts)"
+    labels: ["type:chore", "area:docs", "sys:docs", "estimate:S", "risk:L"]
+    area: docs
+    estimate: S
+    risk: L
+    body:
+      chore_type: "project hygiene / content authoring"
+      what: "Create a release notes template."
+      why: "Easier consistent releases."
+      definition_of_done:
+        - "Template exists"
+        - "Includes sections for features/bugs/known issues"
+        - "Linked from README"
+      system: docs
+      priority: "P3"
+
+  # QA + bug bash
+  - type: chore
+    title: "chore: Create BugBash checklist doc + run it"
+    raw_title: "Create BugBash checklist doc + run it"
+    parent_epic: "EPIC: M4 — QA + bug bash (fix list, stability, regression)"
+    labels: ["type:chore", "area:qa", "sys:qa", "estimate:S", "risk:M"]
+    area: qa
+    estimate: S
+    risk: M
+    body:
+      chore_type: "project hygiene / content authoring"
+      what: "Create a bug bash checklist and actually run it."
+      why: "Structured QA improves quality fast."
+      definition_of_done:
+        - "Docs/BugBash.md exists"
+        - "Checklist run at least once"
+        - "Top issues logged"
+      system: qa
+      priority: "P1"
+
+  - type: bug
+    title: "bug: Fix top 10 bugs found during bug bash"
+    raw_title: "Fix top 10 bugs found during bug bash"
+    parent_epic: "EPIC: M4 — QA + bug bash (fix list, stability, regression)"
+    labels: ["type:bug", "area:qa", "sys:qa", "estimate:L", "risk:H"]
+    area: qa
+    estimate: L
+    risk: H
+    body:
+      what: "Fix the highest priority bugs discovered."
+      why: "Stability and trust."
+      definition_of_done:
+        - "Top 10 bugs closed"
+        - "No new crashers introduced"
+        - "Regression checklist passes"
+      system: qa
+      priority: "P1"
+
+  - type: chore
+    title: "chore: Add regression checklist (smoke test steps)"
+    raw_title: "Add regression checklist (smoke test steps)"
+    parent_epic: "EPIC: M4 — QA + bug bash (fix list, stability, regression)"
+    labels: ["type:chore", "area:qa", "sys:qa", "estimate:S", "risk:L"]
+    area: qa
+    estimate: S
+    risk: L
+    body:
+      chore_type: "project hygiene / content authoring"
+      what: "Write a short regression checklist."
+      why: "Avoid re-breaking basics."
+      definition_of_done:
+        - "Docs/RegressionChecklist.md exists"
+        - "Covers start/run/save/escape/biome transition"
+        - "Used after bug fixes"
+      system: qa
+      priority: "P2"
+
+  - type: chore
+    title: "chore: Write Docs/KnownIssues.md + keep updated"
+    raw_title: "Write Docs/KnownIssues.md + keep updated"
+    parent_epic: "EPIC: M4 — QA + bug bash (fix list, stability, regression)"
+    labels: ["type:chore", "area:docs", "sys:docs", "estimate:S", "risk:L"]
+    area: docs
+    estimate: S
+    risk: L
+    body:
+      chore_type: "project hygiene / content authoring"
+      what: "Maintain a known issues list for the demo."
+      why: "Transparency and sanity."
+      definition_of_done:
+        - "KnownIssues.md exists"
+        - "Linked from README"
+        - "Updated after bug bash"
+      system: docs
+      priority: "P2"
