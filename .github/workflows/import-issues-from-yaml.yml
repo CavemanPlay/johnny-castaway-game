@@ -3,7 +3,7 @@ name: Import Issues from YAML
 on:
   workflow_dispatch:
     inputs:
-      file:
+      yaml_path:
         description: "Path to YAML (e.g. ops/issues/m0-child-issues.yml)"
         required: true
         default: "ops/issues/m0-child-issues.yml"
@@ -12,17 +12,13 @@ on:
         required: true
         default: "true"
         type: choice
-        options:
-          - "true"
-          - "false"
+        options: ["true", "false"]
       update_parent_epic_checklists:
         description: "If true: update parent epic checklist items to link created issues (uses raw_title)"
         required: true
         default: "false"
         type: choice
-        options:
-          - "true"
-          - "false"
+        options: ["true", "false"]
 
 permissions:
   issues: write
@@ -31,23 +27,17 @@ jobs:
   import:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Debug workspace
         run: |
           echo "PWD: $(pwd)"
-          echo "Workspace root:"
-          ls -la
-          echo "ops:"
-          ls -la ops || true
-          echo "ops/issues:"
+          echo "List ops/issues:"
           ls -la ops/issues || true
           echo "Find YAML candidates:"
           find . -maxdepth 6 -type f \( -name "*.yml" -o -name "*.yaml" \) -print
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
 
@@ -62,16 +52,15 @@ jobs:
             const fs = require("fs");
             const yaml = require("js-yaml");
 
-            const yamlPath = (core.getInput("file") || "").trim();
+            // Read inputs (and log them)
+            const yamlPath = (core.getInput("yaml_path") || "").trim();
             const dryRun = ((core.getInput("dry_run") || "true").trim() === "true");
             const updateEpic = ((core.getInput("update_parent_epic_checklists") || "false").trim() === "true");
 
-            core.info(`Input YAML path: "${yamlPath}"`);
-            core.info(`DRY RUN: ${dryRun}`);
-            core.info(`Update epic checklists: ${updateEpic}`);
+            core.info(`Inputs received -> yaml_path="${yamlPath}", dry_run=${dryRun}, update_parent_epic_checklists=${updateEpic}`);
 
             if (!yamlPath) {
-              core.setFailed('Input "file" is empty');
+              core.setFailed('Input "yaml_path" is empty');
               return;
             }
             if (!fs.existsSync(yamlPath)) {
@@ -111,7 +100,6 @@ jobs:
             core.info(`Using milestone #${msNumber}: ${msTitleForLog}`);
             core.info(`Issues in YAML: ${issues.length}`);
 
-            // ---- Helpers
             async function issueExistsExactTitle(title) {
               const q = `repo:${context.repo.owner}/${context.repo.repo} is:issue in:title "${title.replace(/"/g, '\\"')}"`;
               const res = await github.rest.search.issuesAndPullRequests({ q, per_page: 50 });
@@ -180,62 +168,45 @@ jobs:
               return true;
             }
 
-            // ---- Main loop
-            let wouldCreate = 0;
-            let wouldSkip = 0;
-            let createdCount = 0;
-            let skippedCount = 0;
+            let wouldCreate = 0, wouldSkip = 0, createdCount = 0, skippedCount = 0;
 
             for (const item of issues) {
               const title = (item.title || "").trim();
               if (!title) continue;
 
               const exists = await issueExistsExactTitle(title);
-              let epic = null;
 
-              if (item.parent_epic) {
-                epic = await findEpicByTitle(item.parent_epic);
-              }
+              // find parent epic (optional)
+              let epic = null;
+              if (item.parent_epic) epic = await findEpicByTitle(item.parent_epic);
 
               if (exists) {
-                if (dryRun) {
-                  wouldSkip++;
-                  core.info(`[DRY-RUN] Skip (exists): ${title}`);
-                } else {
-                  skippedCount++;
-                  core.info(`Skip (exists): ${title}`);
-                }
+                if (dryRun) { wouldSkip++; core.info(`[DRY-RUN] Skip (exists): ${title}`); }
+                else { skippedCount++; core.info(`Skip (exists): ${title}`); }
                 continue;
               }
 
-              const labels = item.labels || [];
-              const body = buildBody(item, epic ? epic.number : null);
-
               if (dryRun) {
                 wouldCreate++;
-                core.info(`[DRY-RUN] Would create: "${title}" | milestone #${msNumber} | labels: ${JSON.stringify(labels)} | parent epic: ${epic ? "#" + epic.number : (item.parent_epic || "(none)")}`);
+                core.info(`[DRY-RUN] Would create: "${title}" | milestone #${msNumber} | labels: ${JSON.stringify(item.labels || [])} | parent epic: ${epic ? "#" + epic.number : (item.parent_epic || "(none)")}`);
                 continue;
               }
 
               const created = await github.rest.issues.create({
                 ...context.repo,
                 title,
-                body,
+                body: buildBody(item, epic ? epic.number : null),
                 milestone: msNumber,
-                labels,
+                labels: item.labels || [],
               });
 
               createdCount++;
               core.info(`Created #${created.data.number}: ${title}`);
 
               if (updateEpic && epic && item.raw_title) {
-                const ok = await linkIntoEpicChecklist(epic, item.raw_title, created.data.number);
-                if (ok) core.info(`Updated epic checklist: ${epic.title} <- #${created.data.number}`);
+                await linkIntoEpicChecklist(epic, item.raw_title, created.data.number);
               }
             }
 
-            if (dryRun) {
-              core.info(`DRY-RUN complete. Would create: ${wouldCreate}, Would skip: ${wouldSkip}`);
-            } else {
-              core.info(`Done. Created: ${createdCount}, Skipped: ${skippedCount}`);
-            }
+            if (dryRun) core.info(`DRY-RUN complete. Would create: ${wouldCreate}, Would skip: ${wouldSkip}`);
+            else core.info(`Done. Created: ${createdCount}, Skipped: ${skippedCount}`);
