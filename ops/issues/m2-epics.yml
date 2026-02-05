@@ -1,0 +1,213 @@
+milestone_number: 3
+milestone: M2 – Biome 1 Content Pack
+issues:
+  - title: 'EPIC: M2 — Biome 1 event system (random events + outcomes)'
+    labels:
+      - type:epic
+      - area:content
+      - estimate:L
+      - risk:M
+    area: content
+    estimate: L
+    risk: M
+    body:
+      goal: Introduce replayable, seed-driven events that create meaningful choices and consequences during a run.
+      acceptance_criteria:
+        - Event triggers are deterministic given seed + run state (same seed + same actions ⇒ same event sequence).
+        - At least 8 events implemented with 2+ choices each (or 2 outcome branches).
+        - Events can modify resources, hazard state, upgrades, or island features.
+        - Event UI supports choice selection and shows result feedback.
+        - Events are save/load safe (mid-event and post-event).
+      in_scope:
+        - Event scheduler (time/tick-based + probability weights).
+        - Event definitions as data (ScriptableObjects or JSON).
+        - Outcome resolver (resource deltas, flags, unlocks).
+        - Basic event UI panel + notification hook.
+      out_of_scope:
+        - Advanced narrative writing polish.
+        - Localization.
+        - Cinematic cutscenes or voice acting.
+      child_issue_checklist:
+        - 'feat: Define event data model + authoring format (SO/JSON) (Biome 1)'
+        - 'feat: Implement deterministic event scheduler (tick/time + weights)'
+        - 'feat: Build event UI panel (title, description, choices)'
+        - 'feat: Implement 8 biome-1 events + outcomes'
+        - 'feat: Save/Load support for event state + history'
+        - 'chore: Add debug tooling to force/preview events (DevHUD)'
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**
+  - title: 'EPIC: M2 — Biome 1 upgrades & progression depth (tiers + synergies)'
+    labels:
+      - type:epic
+      - area:core
+      - estimate:L
+      - risk:M
+    area: core
+    estimate: L
+    risk: M
+    body:
+      goal: Expand upgrades into a tiered progression with interesting tradeoffs and small synergies, without exploding complexity.
+      acceptance_criteria:
+        - Upgrade data is authored as ScriptableObjects (or equivalent data-driven approach).
+        - At least 12 upgrades across 3 tiers, with clear prereqs/cost scaling.
+        - Upgrades include at least 3 synergies (effects that interact).
+        - UI communicates prereqs, tier, and projected effects.
+        - All upgrades work through tick simulation (no frame-rate dependence).
+      in_scope:
+        - Upgrade tiers, prereqs, unlock rules.
+        - Cost curves and effects registry.
+        - Upgrade UI enhancements (tooltips, locked state).
+        - Simple synergy hooks (e.g., multipliers, conditional bonuses).
+      out_of_scope:
+        - Full skill tree editor tooling.
+        - Meta-progression beyond current prestige system.
+        - Complex crafting chains.
+      child_issue_checklist:
+        - 'tech-debt: Move upgrade definitions to ScriptableObjects (Biome 1)'
+        - 'feat: Implement tier/prereq rules + unlock flow'
+        - 'feat: Add 12 upgrades across 3 tiers (Biome 1 set)'
+        - 'feat: Add synergy hooks (3 examples) + tests'
+        - 'feat: Upgrade UI: locked/prereq display + tooltip details'
+        - 'chore: Balance pass on costs/effects (initial targets)'
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**
+  - title: 'EPIC: M2 — Biome 1 economy & balance pass (targets + tuning loop)'
+    labels:
+      - type:epic
+      - area:balance
+      - estimate:M
+      - risk:M
+    area: balance
+    estimate: M
+    risk: M
+    body:
+      goal: Establish a repeatable tuning workflow and baseline economy targets for Biome 1 so progression feels steady, not
+        random chaos.
+      acceptance_criteria:
+        - 'Define baseline targets: time-to-first-upgrade, time-to-escape parts, survival curve.'
+        - Add tuning parameters to RunConfig (or dedicated BalanceConfig) for Biome 1.
+        - Provide a simple telemetry snapshot (end-of-run stats) for tuning.
+        - At least 5 balancing adjustments made based on data, not vibes.
+      in_scope:
+        - Balance config asset and parameter wiring.
+        - Run telemetry snapshot (stats summary).
+        - Documented tuning loop in docs (how to change values safely).
+      out_of_scope:
+        - Full analytics pipeline.
+        - Remote config delivery.
+        - A/B testing.
+      child_issue_checklist:
+        - 'config: Add BalanceConfig asset for Biome 1 (rates, costs, hazard params)'
+        - 'feat: Extend run summary stats for tuning (economy KPIs)'
+        - 'chore: Add quick ''sim speed'' tools for balance testing (DevHUD)'
+        - 'chore: Document tuning loop (Docs/Balance.md)'
+        - 'chore: Initial balance pass (5+ changes) with notes'
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**
+  - title: 'EPIC: M2 — Biome 1 visuals & juice pack (readability + feedback)'
+    labels:
+      - type:epic
+      - area:ui
+      - estimate:M
+      - risk:M
+    area: ui
+    estimate: M
+    risk: M
+    body:
+      goal: Improve readability and player feedback for Biome 1 systems (events, upgrades, hazard) with lightweight visuals
+        and UI polish.
+      acceptance_criteria:
+        - HUD readability improved (resources/hazard/time) with clear hierarchy.
+        - Event choices and outcomes have immediate feedback (toast + small VFX/SFX hooks).
+        - Upgrade purchase has clear feedback (sound, highlight, resource delta).
+        - 'No new art dependency blockers: placeholders allowed but consistent style.'
+        - No measurable regression in performance (profiling snapshot).
+      in_scope:
+        - UI layout polish and consistent spacing.
+        - Toast/notification improvements (icons, stacking, durations).
+        - Simple VFX hooks (particles/animations) and SFX stubs.
+      out_of_scope:
+        - Full art overhaul.
+        - High-fidelity character animation.
+        - Complex post-processing.
+      child_issue_checklist:
+        - 'feat: UI polish pass on HUD + panels (Biome 1)'
+        - 'feat: Improve toast/notification system (stacking + icons)'
+        - 'feat: Add lightweight VFX hooks for key actions (upgrade, event, hazard)'
+        - 'feat: Add SFX hooks + placeholders for key actions'
+        - 'chore: Performance spot-check + notes (Profiler capture)'
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**
+  - title: 'EPIC: M2 — Biome 1 hazard tuning & mitigation variety'
+    labels:
+      - type:epic
+      - area:systems
+      - estimate:M
+      - risk:M
+    area: systems
+    estimate: M
+    risk: M
+    body:
+      goal: Make the M1 hazard mechanic feel fair and interesting in Biome 1 via tuning + multiple mitigations and clearer telegraphing.
+      acceptance_criteria:
+        - Hazard has clear telegraph states (incoming/active/recovering).
+        - At least 3 mitigation options exist (upgrade/item/behavior).
+        - Hazard integrates with events (at least 2 events interact with hazard).
+        - 'Game-over feels fair: player gets warnings and counterplay.'
+      in_scope:
+        - Hazard parameter tuning + thresholds.
+        - Mitigation options and UI surfacing.
+        - Event ↔ hazard interactions.
+      out_of_scope:
+        - Second hazard mechanic (that’s M3 territory).
+        - Complex AI behaviors.
+      child_issue_checklist:
+        - 'feat: Add hazard telegraph states + UI cues'
+        - 'feat: Implement 3 mitigation options (upgrade/item/behavior)'
+        - 'chore: Tune hazard parameters for Biome 1 baseline'
+        - 'feat: Add 2 events that interact with hazard (buff/debuff)'
+        - 'bug: Review game-over fairness + add warnings'
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**
+  - title: 'EPIC: M2 — Content pipeline & authoring workflow (Biome 1)'
+    labels:
+      - type:epic
+      - area:tooling
+      - estimate:M
+      - risk:L
+    area: tooling
+    estimate: M
+    risk: L
+    body:
+      goal: Make it easy for Future You™ to add Biome 1 content (events/upgrades/resources) without touching code constantly.
+      acceptance_criteria:
+        - Events and upgrades are data-driven and versioned.
+        - Clear folder conventions for content assets (e.g., Assets/Game/Content/Biome1).
+        - 'Validation: content build-time checks catch missing refs/invalid ranges.'
+        - 'Docs: one page describing how to add a new event and upgrade.'
+      in_scope:
+        - Content folder layout + naming conventions.
+        - Validation/guardrails (Editor script or runtime asserts in dev).
+        - Authoring docs.
+      out_of_scope:
+        - Full editor tooling suite.
+        - External mod support.
+      child_issue_checklist:
+        - 'chore: Define content folder structure + conventions (Biome 1)'
+        - 'tech-debt: Add validation for content assets (ranges, refs, duplicates)'
+        - 'chore: Docs/ContentAuthoring.md (events + upgrades)'
+        - 'chore: Add lightweight editor helpers (optional) (e.g., menu items)'
+      notes: |-
+        ### Milestone required
+        GitHub issue forms can’t truly force milestone selection, but our DoD can:
+        **No milestone = not Ready.**
