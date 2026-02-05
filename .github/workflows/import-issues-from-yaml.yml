@@ -14,7 +14,7 @@ on:
         type: choice
         options: ["true", "false"]
       update_parent_epic_checklists:
-        description: "If true: update parent epic checklist items to link issues (uses raw_title)"
+        description: "If true: update parent epic checklist items to link issues (matches raw_title/title with/without type prefix)"
         required: true
         default: "false"
         type: choice
@@ -76,7 +76,7 @@ jobs:
               return;
             }
 
-            // Resolve file path safely inside workspace (supports relative paths like ops/issues/foo.yml)
+            // Resolve YAML path inside workspace (supports relative paths like ops/issues/foo.yml)
             const workspace = process.env.GITHUB_WORKSPACE || process.cwd();
             const yamlAbs = path.isAbsolute(yamlPathInput) ? yamlPathInput : path.join(workspace, yamlPathInput);
 
@@ -126,7 +126,7 @@ jobs:
             core.info(`Issues in YAML: ${items.length}`);
 
             // ---- Cache existing issues: title -> issue number (rate-limit friendly)
-            // This is the key fix: even if we "skip", we still know its number for epic linking.
+            // Key: allows linking even when issues already exist (skipped)
             const existingByTitle = new Map();
 
             if (!dryRun) {
@@ -150,7 +150,7 @@ jobs:
               core.info("DRY-RUN: skipping scan of existing issues to minimize API calls.");
             }
 
-            // ---- Cache epics by title (no search endpoint; list by label)
+            // ---- Cache epics by title (list by label)
             const epicsByTitle = new Map();
             core.info("Fetching epics (label: type:epic)...");
             const epics = await github.paginate(github.rest.issues.listForRepo, {
@@ -171,7 +171,6 @@ jobs:
               const b = item.body || {};
               const out = [];
 
-              // Optional: special section for chore template
               if (item.type === "chore") {
                 out.push(`## Chore type\n${b.chore_type || "tooling (scripts, CI, automation)"}\n`);
               }
@@ -197,24 +196,51 @@ jobs:
               return String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
             }
 
-            async function maybeUpdateEpicChecklist(epic, rawTitle, issueNum) {
-              if (!updateEpic || !epic || !rawTitle || !issueNum) return;
+            function typePrefix(itemType) {
+              switch ((itemType || "").toLowerCase()) {
+                case "feature": return "feat: ";
+                case "chore": return "chore: ";
+                case "bug": return "bug: ";
+                case "config": return "config: ";
+                case "tech-debt": return "tech-debt: ";
+                case "epic": return "EPIC: ";
+                default: return "";
+              }
+            }
+
+            async function maybeUpdateEpicChecklist(epic, item, issueNum) {
+              if (!updateEpic || !epic || !item || !issueNum) return;
 
               const body = epic.body || "";
 
-              // Match exactly a checklist line like:
-              // - [ ] Some raw title
-              const re = new RegExp(`^\\s*- \\[ \\] ${escapeRegex(rawTitle)}\\s*$`, "m");
+              const rawTitle = (item.raw_title || "").trim();
+              const fullTitle = (item.title || "").trim();
+              const prefixedRaw = `${typePrefix(item.type)}${rawTitle}`.trim();
 
-              if (!re.test(body)) {
-                core.info(`Epic checklist line not found in "${epic.title}" for raw_title="${rawTitle}"`);
+              // Try multiple candidates because checklist style might differ
+              const candidates = [];
+              for (const c of [rawTitle, fullTitle, prefixedRaw]) {
+                if (c && !candidates.includes(c)) candidates.push(c);
+              }
+
+              // Find an exact checklist-line match
+              let matched = null;
+              for (const c of candidates) {
+                const re = new RegExp(`^\\s*- \\[ \\] ${escapeRegex(c)}\\s*$`, "m");
+                if (re.test(body)) { matched = c; break; }
+              }
+
+              if (!matched) {
+                core.info(`Epic checklist line not found in "${epic.title}" for any of: ${JSON.stringify(candidates)}`);
                 return;
               }
 
-              const updated = body.replace(re, `- [ ] #${issueNum} ${rawTitle}`);
+              // Replace that line with a linked one (keeps the visible title text the same)
+              const re = new RegExp(`^\\s*- \\[ \\] ${escapeRegex(matched)}\\s*$`, "m");
+              const updated = body.replace(re, `- [ ] #${issueNum} ${matched}`);
 
               if (dryRun) {
-                core.info(`[DRY-RUN] Would update epic #${epic.number}: "${rawTitle}" -> "#${issueNum} ${rawTitle}"`);
+                core.info(`[DRY-RUN] Would update epic #${epic.number}: "${matched}" -> "#${issueNum} ${matched}"`);
                 return;
               }
 
@@ -224,7 +250,7 @@ jobs:
                 body: updated,
               });
 
-              core.info(`Updated epic checklist: ${epic.title} <- #${issueNum}`);
+              core.info(`Updated epic checklist: ${epic.title} <- #${issueNum} (${matched})`);
             }
 
             let wouldCreate = 0, created = 0, skipped = 0;
@@ -235,15 +261,15 @@ jobs:
 
               const epic = item.parent_epic ? epicsByTitle.get(item.parent_epic) : null;
 
-              // If issue already exists:
+              // Existence check
               if (!dryRun && existingByTitle.has(title)) {
                 skipped++;
                 const existingNum = existingByTitle.get(title);
                 core.info(`Skip (exists): #${existingNum} ${title}`);
 
-                // ✅ FIX: even if skipping, optionally link into epic checklist
+                // Even if skipping, link into epic checklist (if enabled)
                 if (updateEpic) {
-                  await maybeUpdateEpicChecklist(epic, item.raw_title, existingNum);
+                  await maybeUpdateEpicChecklist(epic, item, existingNum);
                 }
 
                 continue;
@@ -269,8 +295,10 @@ jobs:
               // Track new issue so later items in the same run see it
               existingByTitle.set(title, createdIssue.data.number);
 
-              // Optional epic checklist update (creation case)
-              await maybeUpdateEpicChecklist(epic, item.raw_title, createdIssue.data.number);
+              // Link into epic checklist (if enabled)
+              if (updateEpic) {
+                await maybeUpdateEpicChecklist(epic, item, createdIssue.data.number);
+              }
             }
 
             if (dryRun) core.info(`DRY-RUN complete. Would create: ${wouldCreate}`);
