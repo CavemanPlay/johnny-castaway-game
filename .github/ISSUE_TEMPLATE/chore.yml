@@ -1,0 +1,70 @@
+name: Chore / Tech Debt
+description: Maintenance, refactor, cleanup, tooling, internal improvements
+title: "chore: "
+labels: ["type:chore"]
+body:
+  - type: dropdown
+    id: subtype
+    attributes:
+      label: Chore type
+      options:
+        - housekeeping (renames, folder moves, cleanup)
+        - tech debt (works but fragile/ugly)
+        - tooling (scripts, CI, automation)
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What
+      placeholder: "Refactor input handling into a single InputService."
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      placeholder: "Current approach is duplicated across scripts and is error-prone."
+    validations:
+      required: true
+
+  - type: textarea
+    id: done
+    attributes:
+      label: Definition of Done
+      placeholder: |
+        - [ ] Change implemented
+        - [ ] No gameplay regression
+        - [ ] No new warnings/errors
+        - [ ] Committed + pushed
+    validations:
+      required: true
+
+  - type: dropdown
+    id: system
+    attributes:
+      label: System label to apply
+      options:
+        - sys:procgen
+        - sys:simulation
+        - sys:events
+        - sys:save-load
+        - sys:ui
+        - sys:build-ci
+        - sys:audio
+        - sys:perf
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority label to apply
+      options:
+        - p0 (blocks progress / crash / data loss)
+        - p1 (important, next few sessions)
+        - p2 (nice-to-have / later)
+    validations:
+      required: true

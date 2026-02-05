@@ -1,0 +1,92 @@
+name: Bug
+description: Something behaves incorrectly vs expected
+title: "bug: "
+labels: ["type:bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Bug summary
+      description: What’s broken in one sentence?
+      placeholder: "Clicking a resource node sometimes gives double resources."
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps. Make it deterministic if possible.
+      placeholder: |
+        1. Start game
+        2. Click node rapidly 10x
+        3. Observe count increments twice per click sometimes
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: "Each click should increment resources by exactly 1."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: "Some clicks increment by 2 (or more)."
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Unity version, platform, branch/commit, anything relevant.
+      placeholder: |
+        - Unity: 6.x / 2022.3 LTS (whichever you use)
+        - Platform: Windows Editor
+        - Commit: <hash>
+    validations:
+      required: false
+
+  - type: textarea
+    id: done
+    attributes:
+      label: Definition of Done
+      placeholder: |
+        - [ ] Root cause identified
+        - [ ] Fix implemented
+        - [ ] Repro steps no longer reproduce
+        - [ ] No new console errors
+    validations:
+      required: true
+
+  - type: dropdown
+    id: system
+    attributes:
+      label: System label to apply
+      options:
+        - sys:procgen
+        - sys:simulation
+        - sys:events
+        - sys:save-load
+        - sys:ui
+        - sys:build-ci
+        - sys:audio
+        - sys:perf
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority label to apply
+      options:
+        - p0 (blocks progress / crash / data loss)
+        - p1 (important, next few sessions)
+        - p2 (nice-to-have / later)
+    validations:
+      required: true

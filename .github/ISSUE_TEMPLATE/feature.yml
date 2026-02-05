@@ -1,0 +1,73 @@
+name: Feature
+description: New player-facing behavior or capability
+title: "feat: "
+labels: ["type:feature"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What
+      description: What are we building? Be concrete.
+      placeholder: "Add a simple gather interaction so Johnny can collect resources from a node."
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: Why do we need this? What player value or system need does it serve?
+      placeholder: "Enables the core idle loop: gather → craft/build → progress."
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Definition of Done
+      description: Bullet points. If these are true, we can close the issue.
+      placeholder: |
+        - [ ] Works in Play Mode
+        - [ ] No errors in Console
+        - [ ] Basic edge cases handled
+        - [ ] Committed + pushed
+    validations:
+      required: true
+
+  - type: dropdown
+    id: system
+    attributes:
+      label: System label to apply
+      description: After creating the issue, apply the matching sys:* label.
+      options:
+        - sys:procgen
+        - sys:simulation
+        - sys:events
+        - sys:save-load
+        - sys:ui
+        - sys:build-ci
+        - sys:audio
+        - sys:perf
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority label to apply
+      description: After creating the issue, apply p0/p1/p2.
+      options:
+        - p0 (blocks progress / crash / data loss)
+        - p1 (important, next few sessions)
+        - p2 (nice-to-have / later)
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes / links
+      description: Optional references, screenshots, quick sketches, etc.
+      placeholder: "Link docs, screenshots, or short thoughts here."
+    validations:
+      required: false
