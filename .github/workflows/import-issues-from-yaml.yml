@@ -7,23 +7,22 @@ on:
         description: "Path to YAML (e.g. ops/issues/m1-child-issues.yml)"
         required: true
         default: "ops/issues/m0-child-issues.yml"
-      # Backwards-compat alias (in case your older workflow used 'file')
-      file:
-        description: "(legacy) Path to YAML (leave blank if using yaml_path)"
-        required: false
-        default: ""
       dry_run:
-        description: "If true: do not create/update anything, only print what would happen"
+        description: "If true: do not create anything, only print what would happen"
         required: true
         default: "true"
         type: choice
         options: ["true", "false"]
       update_parent_epic_checklists:
-        description: "If true: update parent epic checklist items to link created/existing issues"
+        description: "If true: update parent epic checklist items to link issues (uses raw_title)"
         required: true
         default: "false"
         type: choice
         options: ["true", "false"]
+      max_existing_issue_pages:
+        description: "How many pages (100/page) to scan for existing issues (reduce API calls)."
+        required: true
+        default: "5"
 
 permissions:
   contents: read
@@ -33,175 +32,246 @@ jobs:
   import:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Debug workspace
+        run: |
+          echo "PWD: $(pwd)"
+          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+          echo "Listing ops/issues:"
+          ls -la ops/issues || true
+          echo "Find YAML files:"
+          find . -maxdepth 6 -type f \( -name "*.yml" -o -name "*.yaml" \) -print
+
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Install js-yaml
-        run: npm i js-yaml
+        run: npm install js-yaml
 
       - name: Import issues (or dry-run)
         uses: actions/github-script@v7
+        env:
+          YAML_PATH: ${{ inputs.yaml_path }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          UPDATE_EPIC_CHECKLISTS: ${{ inputs.update_parent_epic_checklists }}
+          MAX_EXISTING_PAGES: ${{ inputs.max_existing_issue_pages }}
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require("fs");
             const path = require("path");
             const yaml = require("js-yaml");
 
-            // Accept both 'yaml_path' and legacy 'file'
-            const yamlPath = core.getInput("yaml_path") || core.getInput("file");
-            const dryRun = core.getInput("dry_run") === "true";
-            const updateEpics = core.getInput("update_parent_epic_checklists") === "true";
+            const yamlPathInput = (process.env.YAML_PATH || "").trim();
+            const dryRun = ((process.env.DRY_RUN || "true").trim() === "true");
+            const updateEpic = ((process.env.UPDATE_EPIC_CHECKLISTS || "false").trim() === "true");
+            const maxExistingPages = parseInt((process.env.MAX_EXISTING_PAGES || "5").trim(), 10);
 
-            core.info(`Inputs received -> yaml_path="${core.getInput("yaml_path")}", file="${core.getInput("file")}"`);
-            core.info(`Resolved YAML path -> "${yamlPath}"`);
-            core.info(`dry_run=${dryRun}, update_parent_epic_checklists=${updateEpics}`);
+            core.info(`Inputs -> yaml_path="${yamlPathInput}", dry_run=${dryRun}, update_epic_checklists=${updateEpic}, max_existing_issue_pages=${maxExistingPages}`);
 
-            if (!yamlPath) {
-              core.setFailed("Input 'yaml_path' is empty (and legacy 'file' is also empty)");
+            if (!yamlPathInput) {
+              core.setFailed('Input "yaml_path" is empty');
               return;
             }
 
-            const absPath = path.join(process.env.GITHUB_WORKSPACE, yamlPath);
-            if (!fs.existsSync(absPath)) {
-              core.setFailed(`YAML file not found: ${yamlPath} (resolved to ${absPath})`);
+            // Resolve file path safely inside workspace (supports relative paths like ops/issues/foo.yml)
+            const workspace = process.env.GITHUB_WORKSPACE || process.cwd();
+            const yamlAbs = path.isAbsolute(yamlPathInput) ? yamlPathInput : path.join(workspace, yamlPathInput);
+
+            core.info(`Resolved YAML path -> ${yamlAbs}`);
+
+            if (!fs.existsSync(yamlAbs)) {
+              core.setFailed(`YAML file not found: ${yamlPathInput} (resolved to ${yamlAbs})`);
               return;
             }
 
-            const doc = yaml.load(fs.readFileSync(absPath, "utf8"));
-            const issues = doc.issues || [];
-            if (!Array.isArray(issues) || issues.length === 0) {
-              core.setFailed("No issues found in YAML (expected top-level key 'issues:')");
+            const doc = yaml.load(fs.readFileSync(yamlAbs, "utf8"));
+
+            const milestoneNumber = doc.milestone_number;
+            const milestoneTitle = doc.milestone;
+            const items = doc.issues || [];
+
+            if (!Array.isArray(items) || items.length === 0) {
+              core.setFailed("YAML has no issues. Expected top-level 'issues:' array.");
               return;
             }
 
-            // Milestone selection: prefer milestone_number (stable vs fancy dashes)
-            const milestoneNumber = doc.milestone_number || doc.milestoneNumber || null;
-            let milestone = null;
+            if (!milestoneNumber && !milestoneTitle) {
+              core.setFailed("YAML must include either 'milestone_number' or 'milestone'.");
+              return;
+            }
 
-            if (milestoneNumber) {
-              milestone = { number: Number(milestoneNumber) };
-            } else if (doc.milestone) {
+            // Resolve milestone (prefer number)
+            let msNumber = milestoneNumber;
+            let msTitleForLog = milestoneTitle || `(by number ${milestoneNumber})`;
+
+            if (!msNumber) {
               const milestones = await github.paginate(github.rest.issues.listMilestones, {
                 ...context.repo,
                 state: "all",
                 per_page: 100,
               });
-              milestone = milestones.find(m => m.title === doc.milestone);
-              if (!milestone) {
-                core.setFailed(`Milestone not found (must match exactly): "${doc.milestone}"`);
+              const ms = milestones.find(m => m.title === milestoneTitle);
+              if (!ms) {
+                core.setFailed(`Milestone not found (must match exactly): "${milestoneTitle}"`);
                 return;
               }
+              msNumber = ms.number;
+              msTitleForLog = ms.title;
+            }
+
+            core.info(`Using milestone #${msNumber}: ${msTitleForLog}`);
+            core.info(`Issues in YAML: ${items.length}`);
+
+            // ---- Cache existing issues: title -> issue number (rate-limit friendly)
+            // This is the key fix: even if we "skip", we still know its number for epic linking.
+            const existingByTitle = new Map();
+
+            if (!dryRun) {
+              core.info(`Scanning existing issues (up to ${maxExistingPages} pages @ 100/page)...`);
+              for (let page = 1; page <= maxExistingPages; page++) {
+                const res = await github.rest.issues.listForRepo({
+                  ...context.repo,
+                  state: "all",
+                  per_page: 100,
+                  page,
+                });
+
+                for (const it of res.data) {
+                  existingByTitle.set(it.title, it.number);
+                }
+
+                if (res.data.length < 100) break;
+              }
+              core.info(`Cached ${existingByTitle.size} existing issues (title -> number).`);
             } else {
-              core.setFailed("Missing 'milestone_number' or 'milestone' at top of YAML");
-              return;
+              core.info("DRY-RUN: skipping scan of existing issues to minimize API calls.");
             }
 
-            const epicChildrenMap = new Map();
+            // ---- Cache epics by title (no search endpoint; list by label)
+            const epicsByTitle = new Map();
+            core.info("Fetching epics (label: type:epic)...");
+            const epics = await github.paginate(github.rest.issues.listForRepo, {
+              ...context.repo,
+              state: "all",
+              labels: "type:epic",
+              per_page: 100,
+            });
+            for (const e of epics) epicsByTitle.set(e.title, e);
+            core.info(`Cached ${epicsByTitle.size} epics (title -> issue).`);
 
-            async function findIssueByTitle(title) {
-              const q = `repo:${context.repo.owner}/${context.repo.repo} is:issue in:title "${title.replace(/"/g, '\\"')}"`;
-              const res = await github.rest.search.issuesAndPullRequests({ q, per_page: 20 });
-              const matches = res.data.items.filter(it => it.title === title);
-              return matches.length ? matches[0] : null;
+            function mdChecklist(lines) {
+              if (!lines || lines.length === 0) return "_(none)_";
+              return lines.map(x => `- [ ] ${x}`).join("\n");
             }
 
-            async function createIssue(entry) {
-              const title = entry.title;
-              const bodyObj = entry.body || {};
-              const body = typeof bodyObj === "string"
-                ? bodyObj
-                : Object.entries(bodyObj).map(([k,v]) => {
-                    if (Array.isArray(v)) return `### ${k}\n${v.join("\n")}`;
-                    return `### ${k}\n${String(v)}`;
-                  }).join("\n\n");
+            function buildBody(item, epicNumberOrNull) {
+              const b = item.body || {};
+              const out = [];
 
-              const labels = entry.labels || [];
-              const milestoneNum = milestone.number;
-
-              if (dryRun) {
-                core.info(`[dry-run] Would create: ${title}`);
-                return { number: null, html_url: null, title };
+              // Optional: special section for chore template
+              if (item.type === "chore") {
+                out.push(`## Chore type\n${b.chore_type || "tooling (scripts, CI, automation)"}\n`);
               }
 
-              const created = await github.rest.issues.create({
+              out.push(`## What\n${b.what || ""}\n`);
+              out.push(`## Why\n${b.why || ""}\n`);
+              out.push(`## Definition of Done\n${mdChecklist(b.definition_of_done || [])}\n`);
+              out.push(`## System\n${b.system || ""}\n`);
+              out.push(`## Priority\n${b.priority || ""}\n`);
+
+              if (b.notes) out.push(`## Notes / links\n${b.notes}\n`);
+
+              if (item.parent_epic) {
+                if (epicNumberOrNull) out.push(`## Parent Epic\n- #${epicNumberOrNull}\n`);
+                else out.push(`## Parent Epic\n- ${item.parent_epic}\n`);
+              }
+
+              out.push(`---\n**Area:** ${item.area || ""}  \n**Estimate:** ${item.estimate || ""}  \n**Risk:** ${item.risk || ""}\n`);
+              return out.join("\n").trim() + "\n";
+            }
+
+            function escapeRegex(s) {
+              return String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            }
+
+            async function maybeUpdateEpicChecklist(epic, rawTitle, issueNum) {
+              if (!updateEpic || !epic || !rawTitle || !issueNum) return;
+
+              const body = epic.body || "";
+
+              // Match exactly a checklist line like:
+              // - [ ] Some raw title
+              const re = new RegExp(`^\\s*- \\[ \\] ${escapeRegex(rawTitle)}\\s*$`, "m");
+
+              if (!re.test(body)) {
+                core.info(`Epic checklist line not found in "${epic.title}" for raw_title="${rawTitle}"`);
+                return;
+              }
+
+              const updated = body.replace(re, `- [ ] #${issueNum} ${rawTitle}`);
+
+              if (dryRun) {
+                core.info(`[DRY-RUN] Would update epic #${epic.number}: "${rawTitle}" -> "#${issueNum} ${rawTitle}"`);
+                return;
+              }
+
+              await github.rest.issues.update({
                 ...context.repo,
-                title,
-                body,
-                labels,
-                milestone: milestoneNum,
+                issue_number: epic.number,
+                body: updated,
               });
 
-              return created.data;
+              core.info(`Updated epic checklist: ${epic.title} <- #${issueNum}`);
             }
 
-            function recordChildForEpic(entry, issueData) {
-              const parentEpic = entry.parent_epic;
-              if (!parentEpic) return;
-              if (!epicChildrenMap.has(parentEpic)) epicChildrenMap.set(parentEpic, []);
-              epicChildrenMap.get(parentEpic).push({
-                title: entry.raw_title || entry.title,
-                number: issueData.number,
-                url: issueData.html_url
-              });
-            }
+            let wouldCreate = 0, created = 0, skipped = 0;
 
-            let createdCount = 0;
-            let skippedCount = 0;
-
-            for (const entry of issues) {
-              const title = entry.title;
+            for (const item of items) {
+              const title = (item.title || "").trim();
               if (!title) continue;
 
-              const existing = await findIssueByTitle(title);
+              const epic = item.parent_epic ? epicsByTitle.get(item.parent_epic) : null;
 
-              if (existing) {
-                skippedCount++;
-                core.info(`Skipped (exists): #${existing.number} ${title}`);
-                // IMPORTANT: still record for epic linking
-                recordChildForEpic(entry, existing);
+              // If issue already exists:
+              if (!dryRun && existingByTitle.has(title)) {
+                skipped++;
+                const existingNum = existingByTitle.get(title);
+                core.info(`Skip (exists): #${existingNum} ${title}`);
+
+                // ✅ FIX: even if skipping, optionally link into epic checklist
+                if (updateEpic) {
+                  await maybeUpdateEpicChecklist(epic, item.raw_title, existingNum);
+                }
+
                 continue;
               }
 
-              const created = await createIssue(entry);
-              if (created.number) {
-                createdCount++;
-                core.info(`Created #${created.number}: ${title}`);
-                recordChildForEpic(entry, created);
-              }
-            }
-
-            if (updateEpics) {
               if (dryRun) {
-                core.info(`[dry-run] Would update epic checklists for ${epicChildrenMap.size} epics`);
-              } else {
-                for (const [epicTitle, children] of epicChildrenMap.entries()) {
-                  const epic = await findIssueByTitle(epicTitle);
-                  if (!epic) {
-                    core.warning(`Parent epic not found by exact title: "${epicTitle}"`);
-                    continue;
-                  }
-
-                  let body = epic.body || "";
-                  for (const child of children) {
-                    const safeTitle = child.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-                    const re = new RegExp(`(^\\s*- \\[ \\] ${safeTitle})(?!\\s*#\\d+)`, "m");
-                    body = body.replace(re, `$1 #${child.number}`);
-                  }
-
-                  await github.rest.issues.update({
-                    ...context.repo,
-                    issue_number: epic.number,
-                    body,
-                  });
-
-                  core.info(`Updated epic checklist: ${epic.title} <- ${children.length} items`);
-                }
+                wouldCreate++;
+                core.info(`[DRY-RUN] Would create: "${title}" | milestone #${msNumber} | labels=${JSON.stringify(item.labels || [])} | parent_epic=${epic ? "#" + epic.number : (item.parent_epic || "(none)")}`);
+                continue;
               }
+
+              const createdIssue = await github.rest.issues.create({
+                ...context.repo,
+                title,
+                body: buildBody(item, epic ? epic.number : null),
+                milestone: msNumber,
+                labels: item.labels || [],
+              });
+
+              created++;
+              core.info(`Created #${createdIssue.data.number}: ${title}`);
+
+              // Track new issue so later items in the same run see it
+              existingByTitle.set(title, createdIssue.data.number);
+
+              // Optional epic checklist update (creation case)
+              await maybeUpdateEpicChecklist(epic, item.raw_title, createdIssue.data.number);
             }
 
-            core.info(`Done. Created: ${createdCount}, Skipped: ${skippedCount}`);
+            if (dryRun) core.info(`DRY-RUN complete. Would create: ${wouldCreate}`);
+            else core.info(`Done. Created: ${created}, Skipped: ${skipped}`);
