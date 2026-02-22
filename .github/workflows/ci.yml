@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate ops YAML files
+        run: |
+          python3 - <<'EOF'
+          import yaml, glob, sys
+          failed = False
+          files = glob.glob('ops/**/*.yml', recursive=True)
+          if not files:
+              print("No YAML files found under ops/ — check path")
+              sys.exit(1)
+          for f in sorted(files):
+              try:
+                  with open(f) as fh:
+                      yaml.safe_load(fh)
+                  print(f"OK  {f}")
+              except yaml.YAMLError as e:
+                  print(f"FAIL {f}: {e}")
+                  failed = True
+          sys.exit(1 if failed else 0)
+          EOF
+
+      - name: Check Unity .meta files
+        run: |
+          missing=0
+          while IFS= read -r -d '' file; do
+            if [[ "$file" != *.meta ]]; then
+              meta="${file}.meta"
+              if [[ ! -f "$meta" ]]; then
+                echo "MISSING META: $file"
+                missing=$((missing + 1))
+              fi
+            fi
+          done < <(find UnityProject/JohnnyCastawayGame/Assets -type f -print0 2>/dev/null)
+
+          if [[ $missing -gt 0 ]]; then
+            echo ""
+            echo "::error::$missing asset(s) are missing a .meta file."
+            echo "Open the project in Unity to auto-generate them, then commit."
+            exit 1
+          fi
+          echo "All assets have .meta files ✓"
