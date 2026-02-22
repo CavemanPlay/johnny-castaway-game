@@ -3,8 +3,10 @@ namespace JohnnyGame.Core
     public enum GameState
     {
         Boot,
-        Run,
+        Running,
         Pause,
+        GameOver,
+        Won,
         Exit,
     }
 }

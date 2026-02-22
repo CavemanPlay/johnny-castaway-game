@@ -6,9 +6,12 @@ namespace JohnnyGame.Data
         // ID strategy: "category.name" strings (stable across schema versions)
         public string playerId = "player.default";
 
-        // Resources — driven by TickSim in M1
+        // Resources — driven by TickSim
         public float food;
         public float wood;
-        public float stone;
+        public float scrap;
+
+        // Escape progress — 0..1, reaches 1 to trigger Won state
+        public float escapeProgress;
     }
 }

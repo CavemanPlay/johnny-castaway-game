@@ -8,6 +8,16 @@ namespace JohnnyGame.Data
         // ID strategy: "category.name" (e.g. "biome.tropical", "biome.storm-belt")
         public string biomeId = "biome.tropical";
 
-        // Tile/heightmap data — populated by IWorldGen in M1
+        // Island layout
+        public int width;
+        public int height;
+        public int spawnX;
+        public int spawnY;
+
+        // Flat terrain grid indexed as [y * width + x], values are TerrainType enum ints
+        public TerrainType[] terrainFlat;
+
+        // Resource nodes placed on the island
+        public ResourceNodeData[] nodes;
     }
 }
