@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using JohnnyGame.Data;
 using JohnnyGame.Debugging;
+using JohnnyGame.Rendering;
 using JohnnyGame.Simulation;
 using JohnnyGame.UI;
 
@@ -39,6 +40,7 @@ namespace JohnnyGame.Core
         [SerializeField] private AutoSaveService   _autoSave;
         [SerializeField] private DebugGridRenderer _gridRenderer;
         [SerializeField] private DevHUD            _devHUD;
+        [SerializeField] private IslandSceneView   _sceneView;
 
         // ── Runtime state ──────────────────────────────────────────────────
         private GameState  _state = GameState.Boot;
@@ -259,6 +261,7 @@ namespace JohnnyGame.Core
             if (_autoSave       == null) _autoSave       = CreateChild<AutoSaveService>("AutoSaveService");
             if (_gridRenderer   == null) _gridRenderer   = CreateChild<DebugGridRenderer>("DebugGridRenderer");
             if (_devHUD         == null) _devHUD         = CreateChild<DevHUD>("DevHUD");
+            if (_sceneView      == null) _sceneView      = CreateChild<IslandSceneView>("IslandSceneView");
         }
 
         private T CreateChild<T>(string childName) where T : MonoBehaviour
@@ -303,6 +306,7 @@ namespace JohnnyGame.Core
                 float dmg = UnityEngine.Random.Range(3f, 10f);
                 _resourceStore.TrySpend("resource.food", dmg);
                 _lastStormTick = CurrentTick;
+                _sceneView?.NotifyStorm();
                 GameLogger.LogWarning(GameLogger.Category.Sim, $"Storm! Lost {dmg:F1} food.");
             }
 
