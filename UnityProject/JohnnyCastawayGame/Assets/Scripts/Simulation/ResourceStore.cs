@@ -85,6 +85,15 @@ namespace JohnnyGame.Simulation
                 _gatherMult[resourceId] = mult;
         }
 
+        /// <summary>Returns the base gather rate per tick for the given resource definition.</summary>
+        public float GetBaseGatherRate(string resourceId)
+        {
+            if (_defs != null)
+                foreach (var d in _defs)
+                    if (d.resourceId == resourceId) return d.gatherRatePerTick;
+            return 1f;
+        }
+
         // ── Save/load helpers ──────────────────────────────────────────────
 
         /// <summary>Writes current amounts into a PlayerData for serialisation.</summary>

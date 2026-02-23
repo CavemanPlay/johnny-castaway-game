@@ -47,6 +47,9 @@ namespace JohnnyGame.Simulation
 
         public void SetSpeed(float multiplier) => _speedMultiplier = multiplier;
 
+        /// <summary>Injects config at runtime (used by GameRoot self-bootstrap).</summary>
+        public void SetConfig(RunConfigSO config) => _config = config;
+
         public void ResetTick(int tick = 0)
         {
             CurrentTick = tick;

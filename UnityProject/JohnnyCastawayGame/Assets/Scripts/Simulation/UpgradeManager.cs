@@ -49,9 +49,14 @@ namespace JohnnyGame.Simulation
                 return false;
             }
 
-            if (!_store.TrySpend("resource.wood",  def.costWood))  return false;
-            if (!_store.TrySpend("resource.food",  def.costFood))  return false;
-            if (!_store.TrySpend("resource.scrap", def.costScrap)) return false;
+            // Check all costs first (atomic — avoids partial deduction)
+            if (_store.Get("resource.wood")  < def.costWood)  return false;
+            if (_store.Get("resource.food")  < def.costFood)  return false;
+            if (_store.Get("resource.scrap") < def.costScrap) return false;
+
+            _store.TrySpend("resource.wood",  def.costWood);
+            _store.TrySpend("resource.food",  def.costFood);
+            _store.TrySpend("resource.scrap", def.costScrap);
 
             ApplyEffect(def);
             _purchased.Add(upgradeId);

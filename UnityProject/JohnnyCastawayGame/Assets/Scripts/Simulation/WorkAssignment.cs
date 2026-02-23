@@ -63,7 +63,7 @@ namespace JohnnyGame.Simulation
                 string resId = kvp.Key;
                 var node     = nodes[kvp.Value];
                 float mult   = _store.GetGatherMultiplier(resId);
-                float yield  = GetGatherRate(resId) * mult;
+                float yield  = _store.GetBaseGatherRate(resId) * mult;
                 float actual = Mathf.Min(yield, node.amount);
 
                 node.amount -= actual;
@@ -71,14 +71,5 @@ namespace JohnnyGame.Simulation
             }
         }
 
-        // ── Helpers ────────────────────────────────────────────────────────
-
-        private float GetGatherRate(string resourceId) => resourceId switch
-        {
-            "resource.food"  => 1f,
-            "resource.wood"  => 1f,
-            "resource.scrap" => 0.5f,
-            _                => 1f,
-        };
     }
 }
