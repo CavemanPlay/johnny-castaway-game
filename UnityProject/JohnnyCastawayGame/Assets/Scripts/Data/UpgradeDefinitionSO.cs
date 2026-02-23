@@ -17,6 +17,7 @@ namespace JohnnyGame.Data
         public float costWood;
         public float costFood;
         public float costScrap;
+        public float costDebris;
 
         [Header("Effect")]
         // Supported effectTypes: "gather_multiplier", "food_income", "wood_income", "scrap_income"

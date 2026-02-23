@@ -50,13 +50,15 @@ namespace JohnnyGame.Simulation
             }
 
             // Check all costs first (atomic — avoids partial deduction)
-            if (_store.Get("resource.wood")  < def.costWood)  return false;
-            if (_store.Get("resource.food")  < def.costFood)  return false;
-            if (_store.Get("resource.scrap") < def.costScrap) return false;
+            if (_store.Get("resource.wood")   < def.costWood)   return false;
+            if (_store.Get("resource.food")   < def.costFood)   return false;
+            if (_store.Get("resource.scrap")  < def.costScrap)  return false;
+            if (_store.Get("resource.debris") < def.costDebris) return false;
 
-            _store.TrySpend("resource.wood",  def.costWood);
-            _store.TrySpend("resource.food",  def.costFood);
-            _store.TrySpend("resource.scrap", def.costScrap);
+            _store.TrySpend("resource.wood",   def.costWood);
+            _store.TrySpend("resource.food",   def.costFood);
+            _store.TrySpend("resource.scrap",  def.costScrap);
+            _store.TrySpend("resource.debris", def.costDebris);
 
             ApplyEffect(def);
             _purchased.Add(upgradeId);
@@ -90,6 +92,10 @@ namespace JohnnyGame.Simulation
                 case "scrap_income":
                     _store.AddIncomeBonus("resource.scrap", def.effectValue);
                     break;
+                case "escape_progress":
+                case "dock":
+                case "":
+                    break; // handled externally in GameRoot.TryBuyUpgrade
                 default:
                     GameLogger.LogWarning(GameLogger.Category.Sim,
                         $"Unknown effect type '{def.effectType}' on upgrade {def.upgradeId}");

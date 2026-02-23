@@ -174,7 +174,7 @@ namespace JohnnyGame.UI
         {
             var state = _root.CurrentState;
 
-            GUILayout.BeginArea(new Rect(10, 10, 268, 340), _panelStyle);
+            GUILayout.BeginArea(new Rect(10, 10, 290, 370), _panelStyle);
 
             GUILayout.Label("~ JOHNNY CASTAWAY ~  [` hide]", _titleStyle);
             GUILayout.Space(2);
@@ -216,13 +216,16 @@ namespace JohnnyGame.UI
             // ── Resources ──────────────────────────────────────────────
             GUILayout.Label("RESOURCES", _headerStyle);
 
-            float food  = _root.GetResource("resource.food");
-            float wood  = _root.GetResource("resource.wood");
-            float scrap = _root.GetResource("resource.scrap");
+            float food   = _root.GetResource("resource.food");
+            float wood   = _root.GetResource("resource.wood");
+            float scrap  = _root.GetResource("resource.scrap");
+            float debris = _root.GetResource("resource.debris");
 
             GUILayout.Label($"  Fish / Food    {food:F1}", _labelStyle);
             GUILayout.Label($"  Palm Wood      {wood:F1}", _labelStyle);
             GUILayout.Label($"  Scrap Metal    {scrap:F1}", _labelStyle);
+            var debrisStyle = debris > 0 ? _labelStyle : _dimLabel;
+            GUILayout.Label($"  Debris         {debris:F0}  [click floating items]", debrisStyle);
 
             // Storm warning
             int ticksSinceStorm = _root.CurrentTick - _root.LastStormTick;
@@ -238,13 +241,18 @@ namespace JohnnyGame.UI
             // ── Escape ─────────────────────────────────────────────────
             GUILayout.Label("ESCAPE PROGRESS", _headerStyle);
             float esc = _root.EscapeProgress;
-            StyledBar(esc, food < 5f);
-            GUILayout.Label($"  {esc * 100f:F0}%  —  10 attempts needed", _dimLabel);
-
-            bool canEscape = wood >= 15f && food >= 15f;
-            GUIStyle escBtn = canEscape ? _btnStyle : _dimBtn;
-            if (GUILayout.Button("Attempt Escape  [E]  (15W + 15F)", escBtn) && canEscape)
-                _root.TryEscape();
+            StyledBar(esc, false);
+            string escHint = esc < 0.01f ? "Collect 5 debris → Build Dock"
+                           : esc < 0.16f ? "Build Raft Frame (8W+5D)"
+                           : esc < 0.50f ? "Complete Raft (15W+10F+8D)"
+                           : esc < 0.99f ? "Escaping..."
+                           : "Escaped!";
+            GUILayout.Label($"  {esc * 100f:F0}%  —  {escHint}", _dimLabel);
+            if (_root.IsDockBuilt)
+            {
+                var dockLbl = new GUIStyle(_dimLabel) { normal = { textColor = new Color(0.6f, 0.9f, 1f) } };
+                GUILayout.Label("  [Dock built — fishing active]", dockLbl);
+            }
 
             GUILayout.Space(6);
             Divider();
@@ -271,7 +279,7 @@ namespace JohnnyGame.UI
             if (defs == null || defs.Length == 0) return;
 
             int panelH = 28 + defs.Length * 66;
-            GUILayout.BeginArea(new Rect(288, 10, 238, panelH), _panelStyle);
+            GUILayout.BeginArea(new Rect(310, 10, 255, panelH), _panelStyle);
 
             GUILayout.Label("UPGRADES", _headerStyle);
             GUILayout.Space(2);
@@ -306,7 +314,7 @@ namespace JohnnyGame.UI
 
         private void DrawDebugStrip()
         {
-            GUILayout.BeginArea(new Rect(10, 360, 516, 40), _panelStyle);
+            GUILayout.BeginArea(new Rect(10, 390, 555, 40), _panelStyle);
             GUILayout.BeginHorizontal();
             GUILayout.Label("DEBUG:", _dimLabel);
             if (GUILayout.Button("Tick [F5]",    _btnStyle, GUILayout.Width(80)))  _root.ManualTick();
@@ -348,16 +356,18 @@ namespace JohnnyGame.UI
         }
 
         private bool CanAfford(UpgradeDefinitionSO def)
-            =>  _root.GetResource("resource.wood")  >= def.costWood
-             && _root.GetResource("resource.food")  >= def.costFood
-             && _root.GetResource("resource.scrap") >= def.costScrap;
+            =>  _root.GetResource("resource.wood")   >= def.costWood
+             && _root.GetResource("resource.food")   >= def.costFood
+             && _root.GetResource("resource.scrap")  >= def.costScrap
+             && _root.GetResource("resource.debris") >= def.costDebris;
 
         private static string CostString(UpgradeDefinitionSO def)
         {
             var parts = new List<string>();
-            if (def.costWood  > 0) parts.Add($"{def.costWood}W");
-            if (def.costFood  > 0) parts.Add($"{def.costFood}F");
-            if (def.costScrap > 0) parts.Add($"{def.costScrap}S");
+            if (def.costWood   > 0) parts.Add($"{def.costWood}W");
+            if (def.costFood   > 0) parts.Add($"{def.costFood}F");
+            if (def.costScrap  > 0) parts.Add($"{def.costScrap}S");
+            if (def.costDebris > 0) parts.Add($"{def.costDebris}D");
             return parts.Count > 0 ? string.Join("+", parts) : "free";
         }
 

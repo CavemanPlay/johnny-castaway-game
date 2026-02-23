@@ -48,6 +48,7 @@ namespace JohnnyGame.Core
         private IslandGrid _island;
         private ISave      _save;
         private int        _lastStormTick = -999;
+        private bool       _dockBuilt;
 
         // ── Singleton ──────────────────────────────────────────────────────
         public static GameRoot Instance { get; private set; }
@@ -85,7 +86,6 @@ namespace JohnnyGame.Core
             {
                 HandleSpeedKeys();
 
-                if (Input.GetKeyDown(KeyCode.E))          TryEscape();
                 if (Input.GetKeyDown(KeyCode.F5))         ManualTick();
                 if (Input.GetKeyDown(KeyCode.F6))         DumpState();
                 if (Input.GetKeyDown(KeyCode.Escape))     TransitionTo(GameState.Pause);
@@ -175,37 +175,49 @@ namespace JohnnyGame.Core
 
         // ── Player actions ─────────────────────────────────────────────────
 
-        /// <summary>Attempt to escape. Costs 15 wood + 15 food, adds 10% progress.</summary>
-        public bool TryEscape()
+        /// <summary>Called when the player clicks a floating debris item in the scene.</summary>
+        public void CollectDebris()
         {
-            if (_state != GameState.Running || _runData == null) return false;
-
-            const float woodCost = 15f, foodCost = 15f;
-            if (_resourceStore.Get("resource.wood") < woodCost ||
-                _resourceStore.Get("resource.food") < foodCost)
-            {
-                GameLogger.Log(GameLogger.Category.Core,
-                    "Escape attempt failed — need 15 wood + 15 food.");
-                return false;
-            }
-
-            _resourceStore.TrySpend("resource.wood", woodCost);
-            _resourceStore.TrySpend("resource.food", foodCost);
-            _runData.player.escapeProgress = Mathf.Min(1f, _runData.player.escapeProgress + 0.1f);
-
+            if (_resourceStore == null) return;
+            _resourceStore.Add("resource.debris", 1f);
             GameLogger.Log(GameLogger.Category.Core,
-                $"Escape attempt! Progress: {_runData.player.escapeProgress * 100f:F0}%");
+                $"Debris collected! Total: {_resourceStore.Get("resource.debris"):F0}");
+        }
 
+        public bool TryBuyUpgrade(string upgradeId)
+        {
+            if (_upgradeManager?.TryBuy(upgradeId) != true) return false;
+
+            // Side-effects keyed on upgradeId (escape + dock visuals)
+            switch (upgradeId)
+            {
+                case "upgrade.dock":
+                    _dockBuilt = true;
+                    _sceneView?.SetDockBuilt(true);
+                    AddEscapeProgress(0.15f);
+                    break;
+                case "upgrade.raft-frame":
+                    AddEscapeProgress(0.35f);
+                    break;
+                case "upgrade.raft-complete":
+                    AddEscapeProgress(0.50f);
+                    break;
+            }
+            return true;
+        }
+
+        private void AddEscapeProgress(float amount)
+        {
+            if (_runData == null) return;
+            _runData.player.escapeProgress = Mathf.Min(1f, _runData.player.escapeProgress + amount);
+            GameLogger.Log(GameLogger.Category.Core,
+                $"Escape progress: {_runData.player.escapeProgress * 100f:F0}%");
             if (_runData.player.escapeProgress >= 1f)
             {
                 GameLogger.Log(GameLogger.Category.Core, "YOU ESCAPED THE ISLAND!");
                 TransitionTo(GameState.Won);
             }
-
-            return true;
         }
-
-        public bool TryBuyUpgrade(string upgradeId) => _upgradeManager?.TryBuy(upgradeId) ?? false;
 
         // ── Dev commands ───────────────────────────────────────────────────
 
@@ -232,6 +244,7 @@ namespace JohnnyGame.Core
         public int       UpgradeCount    => _upgradeManager != null ? _upgradeManager.PurchasedCount : 0;
         public IslandGrid CurrentIsland  => _island;
         public float     EscapeProgress  => _runData?.player.escapeProgress ?? 0f;
+        public bool      IsDockBuilt     => _dockBuilt;
         public int       LastStormTick   => _lastStormTick;
 
         public float GetResource(string id) => _resourceStore?.Get(id) ?? 0f;
@@ -262,6 +275,7 @@ namespace JohnnyGame.Core
             if (_gridRenderer   == null) _gridRenderer   = CreateChild<DebugGridRenderer>("DebugGridRenderer");
             if (_devHUD         == null) _devHUD         = CreateChild<DevHUD>("DevHUD");
             if (_sceneView      == null) _sceneView      = CreateChild<IslandSceneView>("IslandSceneView");
+            _sceneView.OnDebrisCollected += CollectDebris;
         }
 
         private T CreateChild<T>(string childName) where T : MonoBehaviour
@@ -290,6 +304,8 @@ namespace JohnnyGame.Core
             _tickService.ResetTick(_runData.tick);
 
             _gridRenderer.SetGrid(_island);
+            _dockBuilt = false;
+            _sceneView?.SetDockBuilt(false);
 
             GameLogger.Log(GameLogger.Category.Core,
                 $"Services bootstrapped. Island {_island.Width}×{_island.Height}, {_island.Nodes.Length} nodes.");
@@ -356,9 +372,10 @@ namespace JohnnyGame.Core
         {
             return new[]
             {
-                MakeResDef("resource.food",  "Food",  10f, gatherRate: 1.5f, income: 0.05f),
-                MakeResDef("resource.wood",  "Wood",   5f, gatherRate: 1.0f, income: 0f),
-                MakeResDef("resource.scrap", "Scrap",  0f, gatherRate: 0.5f, income: 0f),
+                MakeResDef("resource.food",   "Food",   10f, gatherRate: 1.5f, income: 0.05f),
+                MakeResDef("resource.wood",   "Wood",    5f, gatherRate: 1.0f, income: 0f),
+                MakeResDef("resource.scrap",  "Scrap",   0f, gatherRate: 0.5f, income: 0f),
+                MakeResDef("resource.debris", "Debris",  0f, gatherRate: 0f,   income: 0f),
             };
         }
 
@@ -381,27 +398,42 @@ namespace JohnnyGame.Core
         {
             return new[]
             {
-                MakeUpgrade("upgrade.better-axe",    "Better Axe",
-                            "Wood gather rate ×2",
+                MakeUpgrade("upgrade.dock",
+                            "Build Dock",
+                            "Fish from a dock: +2 food/tick. Opens escape route. (+15% escape)",
+                            costWood: 3f, costDebris: 5f,
+                            effectType: "food_income", effectValue: 2f),
+
+                MakeUpgrade("upgrade.better-axe",
+                            "Better Axe",
+                            "Sharper blade: wood gather rate ×2",
                             costWood: 10f,
                             effectType: "gather_multiplier", effectValue: 2f,
                             target: "resource.wood"),
 
-                MakeUpgrade("upgrade.fish-trap",     "Fish Trap",
-                            "+1 food per tick (passive)",
+                MakeUpgrade("upgrade.fish-trap",
+                            "Fish Trap",
+                            "Passive net: +1 food per tick",
                             costWood: 5f, costScrap: 2f,
                             effectType: "food_income", effectValue: 1f),
 
-                MakeUpgrade("upgrade.debris-sifter", "Debris Sifter",
-                            "+0.5 scrap per tick (passive)",
-                            costFood: 8f,
-                            effectType: "scrap_income", effectValue: 0.5f),
+                MakeUpgrade("upgrade.raft-frame",
+                            "Raft Frame",
+                            "Lash debris together into a raft hull. (+35% escape)",
+                            costWood: 8f, costDebris: 5f,
+                            effectType: ""),
+
+                MakeUpgrade("upgrade.raft-complete",
+                            "Complete Raft",
+                            "Add sail and supplies — ready to launch! (+50% escape = WIN)",
+                            costWood: 15f, costFood: 10f, costDebris: 8f,
+                            effectType: ""),
             };
         }
 
         private static UpgradeDefinitionSO MakeUpgrade(string id, string display, string desc,
                                                         float costWood = 0, float costFood = 0,
-                                                        float costScrap = 0,
+                                                        float costScrap = 0, float costDebris = 0,
                                                         string effectType = "", float effectValue = 0,
                                                         string target = "")
         {
@@ -412,6 +444,7 @@ namespace JohnnyGame.Core
             d.costWood               = costWood;
             d.costFood               = costFood;
             d.costScrap              = costScrap;
+            d.costDebris             = costDebris;
             d.effectType             = effectType;
             d.effectValue            = effectValue;
             d.effectTargetResourceId = target;
